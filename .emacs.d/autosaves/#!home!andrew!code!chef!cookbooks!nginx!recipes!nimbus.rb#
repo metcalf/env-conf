@@ -1,0 +1,40 @@
+directory "#{node[:nginx][:dir]}/includes"
+directory "/etc/ssl"
+
+conf_includes = %w{ proxy ssl-proxy uwsgi_params nimbus-backend 
+                    nimbusadmin-backend nimbus-static }
+conf_includes.each do |conf_file|
+  cookbook_file "#{node[:nginx][:dir]}/includes/#{conf_file}.conf" do
+    source "includes/#{conf_file}.conf"
+  end
+end
+
+nginx_site "default" do
+  enable false
+end
+
+node[:nginx][:sites].each do |site_name|
+  template "#{node[:nginx][:dir]}/sites-available/#{site_name}" do
+    source "sites/#{site_name}.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+  end
+  nginx_site site_name
+end
+
+
+node[:nginx][:certs].each do |cert_name|
+  %w{ crt key }.each do |suffix|
+    cookbook_file "/etc/ssl/#{cert_name}.#{suffix}" do
+      source "certs/#{cert_name}.#{suffix}"
+      owner "root"
+      group "www-data"
+      mode "0640"
+    end
+  end
+end
+
+service "nginx" do
+  action [ :reload ]
+end

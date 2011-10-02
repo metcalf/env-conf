@@ -1,0 +1,2 @@
+#!/bin/bash
+~/.emacs.d/jslint-custom < $1
