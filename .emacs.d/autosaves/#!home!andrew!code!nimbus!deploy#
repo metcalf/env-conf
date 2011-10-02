@@ -1,8 +1,0 @@
-#!/bin/bash
-if [ ${2-"r"} = "skip" ]; then
-    RUN_TEST="n"
-else
-    RUN_TEST="y"
-fi
-source ve/bin/activate
-fab $1 check_bootstrap_status:y,y prepare_git_deploy:$RUN_TEST git_deploy restart_supervisord
