@@ -6666,24 +6666,18 @@ loop:   for (;;) {
 
     return itself;
 
-} (); (function(a) {
-    
+} (); 
+(function(a) {
     var input="";
     var line="";
-    var blankcount="0";
-    while (blankcount < 10){
+    while (true){
         line=readline();
+        if (line==null || line=="END")
+	   break
 
-        if (line=="")
-            blankcount++;
-        else
-            blankcount=0;
-        if (line=="END") break;
         input += line;
         input += "\n";
     }
-    input = input.substring(0, input.length-blankcount);
-
     if (!input) {
         print("No input!");
         quit(1);

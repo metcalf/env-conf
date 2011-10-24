@@ -7,10 +7,6 @@
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
 
-(set-scroll-bar-mode 'right)
-;(desktop-save-mode t)
-(tool-bar-mode -1)
-
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
@@ -19,51 +15,56 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
-(add-to-list 'load-path "~/.emacs.d/autocomplete")
-(require 'auto-complete-config)		
-(add-to-list 'ac-dictionary-directories "/home/andrew/.emacs.d/autocomplete/ac-dict")
-(ac-config-default)
-(setq ac-use-menu-map t)
-(setq ac-ignore-case nil)
-
-(require 'tabbar)
 (when window-system
-  (tabbar-mode t)
-)
+  (set-scroll-bar-mode 'right)
+  (tool-bar-mode -1)
 
-(defun tabbar-buffer-groups ()
-  "Return the list of group names the current buffer belongs to.
+  (add-to-list 'load-path "~/.emacs.d/autocomplete")
+  (require 'auto-complete-config)		
+  (add-to-list 'ac-dictionary-directories "/home/andrew/.emacs.d/autocomplete/ac-dict")
+  (ac-config-default)
+  (setq ac-use-menu-map t)
+  (setq ac-ignore-case nil)
+
+  (require 'tabbar)
+  (tabbar-mode t)
+  (defun tabbar-buffer-groups ()
+    "Return the list of group names the current buffer belongs to.
 This function is a custom function for tabbar-mode's tabbar-buffer-groups.
 This function group all buffers into 3 groups:
 Those Dired, those user buffer, and those emacs buffer.
 Emacs buffer are those starting with “*”."
-  (list
-   (cond
-    ((string-equal "*" (substring (buffer-name) 0 1))
-     "Emacs Buffer"
-     )
-    ((and 
-     (> (length (buffer-name)) 23)
-     (or
-      (string-equal "mumamo-fetch-major-mode" (substring (buffer-name) 0 23))
-      (string-equal "template-indent-buffer" (substring (buffer-name) -22)))
-     "Emacs Buffer"
-     ))
-    ((eq major-mode 'dired-mode)
-     "Dired"
-     )
-    (t
-     "User Buffer"
-     )
-    ))) 
+    (list
+     (cond
+      ((string-equal "*" (substring (buffer-name) 0 1))
+       "Emacs Buffer"
+       )
+      ((and 
+	(> (length (buffer-name)) 23)
+	(or
+	 (string-equal "mumamo-fetch-major-mode" (substring (buffer-name) 0 23))
+	 (string-equal "template-indent-buffer" (substring (buffer-name) -22)))
+	"Emacs Buffer"
+	))
+      ((eq major-mode 'dired-mode)
+       "Dired"
+       )
+      (t
+       "User Buffer"
+       )
+      ))) 
 
 
-(setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+  (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
 
-(setq speedbar-mode-hook '(lambda ()
-			    (interactive)
-			    (other-frame 0)))
-(speedbar 1)
+  (setq speedbar-mode-hook '(lambda ()
+			      (interactive)
+			      (other-frame 0)))
+;  (speedbar 1)
+
+
+)
+
 
 ;(require 'jslint)
 
@@ -81,6 +82,9 @@ Emacs buffer are those starting with “*”."
 ;                    (set-variable 'py-indent-offset 4)
 ;                    (set-variable 'py-smart-indentation nil)
 ;                    (set-variable 'indent-tabs-mode nil) )))
+(add-hook 'python-mode-hook
+          '(lambda ()
+                   (flymake-mode)))
 
 (require 'whitespace)
 
