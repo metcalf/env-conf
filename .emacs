@@ -118,10 +118,30 @@ Emacs buffer are those starting with “*”."
 ;(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
 ;(require 'ecb)
 
+;(add-to-list 'load-path "~/.emacs.d/coffee-mode")
+;(require 'coffee-mode)
+
+;(defun coffee-custom ()
+;  "coffee-mode-hook"
+; (set (make-local-variable 'tab-width) 2))
+
+;(add-hook 'coffee-mode-hook
+;  '(lambda() (coffee-custom)))
+
+;(add-hook 'coffee-mode-hook '(lambda ()
+;                               (and (file-exists-p (buffer-file-name))
+;                                    (file-exists-p (coffee-compiled-file-name))
+;                                    (coffee-cos-mode t))))
+
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
 (require 'flymake-jslint)
-(add-hook 'js-mode-hook
-	  (lambda () (flymake-mode t)))
+;(defun js-mode-flymake-hook ()
+;  (cond 
+;   ((string-equal "ml" (substring (buffer-file-name) -2 nil)) nil )
+;   (t (flymake-mode t)) )
+;  )
+;(add-hook 'js-mode-hook 'js-mode-flymake-hook)
 
 (when (load "flymake" t)
   (defun flymake-pylint-init ()
@@ -136,6 +156,7 @@ Emacs buffer are those starting with “*”."
                 '("\\.py\\'" flymake-pylint-init))
   
  )
+
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
