@@ -15,6 +15,15 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
+(defun read-system-path ()
+  (with-temp-buffer
+    (insert-file-contents "/etc/paths")
+    (goto-char (point-min))
+    (replace-regexp "\n" ":")
+    (thing-at-point 'line)))
+
+(setenv "PATH" (read-system-path))
+
 (when window-system
   (set-scroll-bar-mode 'right)
   (tool-bar-mode -1)
@@ -118,20 +127,33 @@ Emacs buffer are those starting with “*”."
 ;(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
 ;(require 'ecb)
 
-;(add-to-list 'load-path "~/.emacs.d/coffee-mode")
-;(require 'coffee-mode)
+(add-to-list 'load-path "~/.emacs.d/coffee-mode")
+(require 'coffee-mode)
 
-;(defun coffee-custom ()
-;  "coffee-mode-hook"
-; (set (make-local-variable 'tab-width) 2))
+(setq coffee-tab-width 2)
+(setq coffee-js-mode 'js-mode)
+(setq coffee-args-compile '("-o ../" "-c")) ; Send output up one directory
 
-;(add-hook 'coffee-mode-hook
-;  '(lambda() (coffee-custom)))
+(defun coffee-compiled-file-name (&optional filename)
+  "Returns the name of the JavaScript file compiled from a CoffeeScript file.
+If FILENAME is omitted, the current buffer's file name is used."
+  (let ((filename (or filename (buffer-file-name))))
+    (concat 
+     (expand-file-name "../" (file-name-directory filename))
+     (file-name-sans-extension (file-name-nondirectory filename)) 
+     ".js")))
 
-;(add-hook 'coffee-mode-hook '(lambda ()
-;                               (and (file-exists-p (buffer-file-name))
-;                                    (file-exists-p (coffee-compiled-file-name))
-;                                    (coffee-cos-mode t))))
+(defun coffee-custom ()
+  "coffee-mode-hook"
+
+  ;; Compile '.coffee' files on every save
+  (and (file-exists-p (buffer-file-name))
+       (file-exists-p (coffee-compiled-file-name))
+       (coffee-cos-mode t))
+)
+
+(add-hook 'coffee-mode-hook
+  '(lambda() (coffee-custom)))
 
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
