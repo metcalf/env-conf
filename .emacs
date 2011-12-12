@@ -3,7 +3,7 @@
 (setq-default truncate-lines t)
 (setq line-number-mode t)
 (setq column-number-mode t)
-(setq js-indent-level 2)
+(setq js-indent-level 4)
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
 
@@ -15,14 +15,15 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
-(defun read-system-path ()
-  (with-temp-buffer
-    (insert-file-contents "/etc/paths")
-    (goto-char (point-min))
-    (replace-regexp "\n" ":")
-    (thing-at-point 'line)))
+(when (file-exists-p "/etc/paths")
+  (defun read-system-path ()
+    (with-temp-buffer
+      (insert-file-contents "/etc/paths")
+      (goto-char (point-min))
+      (replace-regexp "\n" ":")
+      (thing-at-point 'line)))
+  (setenv "PATH" (read-system-path)))
 
-(setenv "PATH" (read-system-path))
 
 (when window-system
   (set-scroll-bar-mode 'right)
