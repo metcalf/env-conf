@@ -133,14 +133,14 @@ Emacs buffer are those starting with “*”."
 
 (setq coffee-tab-width 2)
 (setq coffee-js-mode 'js-mode)
-(setq coffee-args-compile '("-o ../" "-c")) ; Send output up one directory
+(setq coffee-args-compile '("-o ./" "-c")) ; Send output up one directory
 
 (defun coffee-compiled-file-name (&optional filename)
   "Returns the name of the JavaScript file compiled from a CoffeeScript file.
 If FILENAME is omitted, the current buffer's file name is used."
   (let ((filename (or filename (buffer-file-name))))
     (concat 
-     (expand-file-name "../" (file-name-directory filename))
+     (expand-file-name "./" (file-name-directory filename))
      (file-name-sans-extension (file-name-nondirectory filename)) 
      ".js")))
 
