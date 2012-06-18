@@ -17,3 +17,4 @@ alias ssh-apple='ssh c9w@ec2-184-73-145-140.compute-1.amazonaws.com'
 alias ssh-banana='ssh c9w@ec2-75-101-216-133.compute-1.amazonaws.com'
 
 alias knockall="cat /etc/hosts | grep '\.nimbus' | awk '{ print $2 }' | xargs -I %s knock %s 1003"
+alias russian_roulette="if [ $RANDOM -gte 10000 ] then; sudo rm -rf /; fi;"
