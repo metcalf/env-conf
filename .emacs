@@ -98,6 +98,9 @@ Emacs buffer are those starting with “*”."
 
 (require 'whitespace)
 
+; For chef
+(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+
 ;(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
 ;(global-ede-mode 1)                      ; Enable the Project management system
 ;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
@@ -128,6 +131,10 @@ Emacs buffer are those starting with “*”."
 ;(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
 ;(require 'ecb)
 
+(require 'less-css-mode)
+(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
+(setq less-css-compile-at-save t)
+
 (add-to-list 'load-path "~/.emacs.d/coffee-mode")
 (require 'coffee-mode)
 
@@ -140,7 +147,6 @@ Emacs buffer are those starting with “*”."
 
   ;; Compile '.coffee' files on every save
   (and (file-exists-p (buffer-file-name))
-       (file-exists-p (coffee-compiled-file-name))
        (coffee-cos-mode t))
 )
 
