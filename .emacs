@@ -133,6 +133,7 @@ Emacs buffer are those starting with “*”."
 
 (require 'less-css-mode)
 (setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
+(add-to-list 'less-css-lessc-options (concatenate 'string "--include-path=" (expand-file-name "~/code/bootstrap/less")))
 (setq less-css-compile-at-save t)
 
 (add-to-list 'load-path "~/.emacs.d/coffee-mode")
