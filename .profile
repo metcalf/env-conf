@@ -21,12 +21,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-##
-# Your previous /Volumes/Data/Users/andrew/.profile file was backed up as /Volumes/Data/Users/andrew/.profile.macports-saved_2011-11-16_at_22:30:12
-##
-
-# MacPorts Installer addition on 2011-11-16_at_22:30:12: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/usr/local/bin:/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
 eval "$(rbenv init -)"
