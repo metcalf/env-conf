@@ -8,12 +8,28 @@
 (setq c-basic-offset 4)
 
 (custom-set-variables
-  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
-  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+  '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/code/.emacs_backups/"))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (add-to-list 'load-path "~/.emacs.d")
+
+(require 'cl)
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(autoload 'octave-mode "octave-mod" nil t)
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (if (eq window-system 'x)
+                (font-lock-mode 1))))
 
 (when (file-exists-p "/etc/paths")
   (defun read-system-path ()
@@ -23,7 +39,7 @@
       (replace-regexp "\n" ":")
       (thing-at-point 'line)))
   (setenv "PATH" (read-system-path)))
-
+(setq exec-path (split-string (getenv "PATH") path-separator))
 
 (when window-system
   (set-scroll-bar-mode 'right)
@@ -75,6 +91,24 @@ Emacs buffer are those starting with “*”."
 
 )
 
+(defvar prelude-packages
+  '(clojure-mode paredit nrepl)
+  "A list of packages to ensure are installed at launch.")
+
+(defun prelude-packages-installed-p ()
+  (loop for p in prelude-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (prelude-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs Prelude is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p prelude-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
 
 ;(require 'jslint)
 
@@ -106,7 +140,7 @@ Emacs buffer are those starting with “*”."
 ;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
 ;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
-(load "~/.emacs.d/nxhtml/autostart.el")
+;(load "~/.emacs.d/nxhtml/autostart.el")
 (setq mumamo-background-colors nil)
 ;(require 'jinja)
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
@@ -177,6 +211,8 @@ Emacs buffer are those starting with “*”."
   
  )
 
+(add-to-list 'load-path "~/.emacs.d/ess/lisp")
+(require 'ess-site)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
