@@ -1,6 +1,18 @@
+# Emacs #
+#########
 autosaves/
 *~
-\#*
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
 
 # Logs and databases #
 ######################
@@ -11,8 +23,24 @@ autosaves/
 
 # OS generated files #
 ######################
+.DS_Store
 .DS_Store?
-ehthumbs.db
+._*
+.Spotlight-V100
+.Trashes
 Icon?
+ehthumbs.db
 Thumbs.db
-desktop.ini
+.AppleDouble
+.LSOverride
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.py[cod]
+
