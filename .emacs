@@ -3,7 +3,7 @@
 (setq-default truncate-lines t)
 (setq line-number-mode t)
 (setq column-number-mode t)
-(setq js-indent-level 4)
+(setq js-indent-level 2)
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
 
@@ -18,8 +18,31 @@
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
+
+(defvar prelude-packages
+  '(clojure-mode paredit nrepl flycheck)
+  "A list of packages to ensure are installed at launch.")
+
+(defun prelude-packages-installed-p ()
+  (loop for p in prelude-packages
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (prelude-packages-installed-p)
+  ;; check for new packages (package versions)
+  (message "%s" "Emacs Prelude is now refreshing its package database...")
+  (package-refresh-contents)
+  (message "%s" " done.")
+  ;; install the missing packages
+  (dolist (p prelude-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-highlighting-mode 'lines)
 
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
@@ -31,6 +54,7 @@
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
 
+; Read path on OS X
 (when (file-exists-p "/etc/paths")
   (defun read-system-path ()
     (with-temp-buffer
@@ -52,83 +76,45 @@
   (setq ac-use-menu-map t)
   (setq ac-ignore-case nil)
 
-  (require 'tabbar)
-  (tabbar-mode t)
-  (defun tabbar-buffer-groups ()
-    "Return the list of group names the current buffer belongs to.
-This function is a custom function for tabbar-mode's tabbar-buffer-groups.
-This function group all buffers into 3 groups:
-Those Dired, those user buffer, and those emacs buffer.
-Emacs buffer are those starting with “*”."
-    (list
-     (cond
-      ((string-equal "*" (substring (buffer-name) 0 1))
-       "Emacs Buffer"
-       )
-      ((and 
-	(> (length (buffer-name)) 23)
-	(or
-	 (string-equal "mumamo-fetch-major-mode" (substring (buffer-name) 0 23))
-	 (string-equal "template-indent-buffer" (substring (buffer-name) -22)))
-	"Emacs Buffer"
-	))
-      ((eq major-mode 'dired-mode)
-       "Dired"
-       )
-      (t
-       "User Buffer"
-       )
-      ))) 
+;;   (require 'tabbar)
+;;   (tabbar-mode t)
+;;   (defun tabbar-buffer-groups ()
+;;     "Return the list of group names the current buffer belongs to.
+;; This function is a custom function for tabbar-mode's tabbar-buffer-groups.
+;; This function group all buffers into 3 groups:
+;; Those Dired, those user buffer, and those emacs buffer.
+;; Emacs buffer are those starting with “*”."
+;;     (list
+;;      (cond
+;;       ((string-equal "*" (substring (buffer-name) 0 1))
+;;        "Emacs Buffer"
+;;        )
+;;       ((and 
+;; 	(> (length (buffer-name)) 23)
+;; 	(or
+;; 	 (string-equal "mumamo-fetch-major-mode" (substring (buffer-name) 0 23))
+;; 	 (string-equal "template-indent-buffer" (substring (buffer-name) -22)))
+;; 	"Emacs Buffer"
+;; 	))
+;;       ((eq major-mode 'dired-mode)
+;;        "Dired"
+;;        )
+;;       (t
+;;        "User Buffer"
+;;        )
+;;       ))) 
 
 
-  (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
+;;   (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
 
-  (setq speedbar-mode-hook '(lambda ()
-			      (interactive)
-			      (other-frame 0)))
-;  (speedbar 1)
-
-
+;;   (setq speedbar-mode-hook '(lambda ()
+;;   			      (interactive)
+;;   			      (other-frame 0)))
+;;     (speedbar 1)
 )
-
-(defvar prelude-packages
-  '(clojure-mode paredit nrepl)
-  "A list of packages to ensure are installed at launch.")
-
-(defun prelude-packages-installed-p ()
-  (loop for p in prelude-packages
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t)))
-
-(unless (prelude-packages-installed-p)
-  ;; check for new packages (package versions)
-  (message "%s" "Emacs Prelude is now refreshing its package database...")
-  (package-refresh-contents)
-  (message "%s" " done.")
-  ;; install the missing packages
-  (dolist (p prelude-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
-;(require 'jslint)
-
-;(require 'autopair)
-;(autopair-global-mode)
-
-;(require 'auto-pair+)
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
-;(autoload 'python-mode "python-mode" "Python Mode." t)
-;(setq python-mode-hook
-;      '(lambda () (progn
-;                    (set-variable 'py-indent-offset 4)
-;                    (set-variable 'py-smart-indentation nil)
-;                    (set-variable 'indent-tabs-mode nil) )))
-(add-hook 'python-mode-hook
-          '(lambda ()
-                   (flymake-mode)))
 
 (require 'whitespace)
 
@@ -146,15 +132,15 @@ Emacs buffer are those starting with “*”."
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
 
 ;; Mumamo is making emacs 23.3 freak out:
-(when (and (equal emacs-major-version 23)
-           (equal emacs-minor-version 3))
-  (eval-after-load "bytecomp"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;; tramp-compat.el clobbers this variable!
-  (eval-after-load "tramp-compat"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function)))
+;; (when (and (equal emacs-major-version 23)
+;;            (equal emacs-minor-version 3))
+;;   (eval-after-load "bytecomp"
+;;     '(add-to-list 'byte-compile-not-obsolete-vars
+;;                   'font-lock-beginning-of-syntax-function))
+;;   ;; tramp-compat.el clobbers this variable!
+;;   (eval-after-load "tramp-compat"
+;;     '(add-to-list 'byte-compile-not-obsolete-vars
+;;                   'font-lock-beginning-of-syntax-function)))
 
 ;(ido-mode t)
 ;(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
@@ -162,11 +148,8 @@ Emacs buffer are those starting with “*”."
 (require 'textmate)
 (textmate-mode)
 
-;(add-to-list 'load-path "~/.emacs.d/ecb-2.40")
-;(require 'ecb)
-
 (require 'less-css-mode)
-(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
+;(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
 (add-to-list 'less-css-lessc-options (concatenate 'string "--include-path=" (expand-file-name "~/code/bootstrap/less")))
 (setq less-css-compile-at-save t)
 
@@ -175,11 +158,9 @@ Emacs buffer are those starting with “*”."
 
 (setq coffee-tab-width 2)
 (setq coffee-js-mode 'js-mode)
-(setq coffee-args-compile '("-c")) ; Send output up one directory
 
 (defun coffee-custom ()
   "coffee-mode-hook"
-
   ;; Compile '.coffee' files on every save
   (and (file-exists-p (buffer-file-name))
        (coffee-cos-mode t))
@@ -188,42 +169,64 @@ Emacs buffer are those starting with “*”."
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
-(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-(require 'flymake-jslint)
-;(defun js-mode-flymake-hook ()
-;  (cond 
-;   ((string-equal "ml" (substring (buffer-file-name) -2 nil)) nil )
-;   (t (flymake-mode t)) )
-;  )
-;(add-hook 'js-mode-hook 'js-mode-flymake-hook)
+(add-to-list 'auto-mode-alist '("\\.txt$" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . text-mode))
+(add-to-list 'auto-mode-alist '("\\.text$" . text-mode))
 
-(when (load "flymake" t)
-  (defun flymake-pylint-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "epylint" (list temp-file))))
-  
-   (add-to-list 'flymake-allowed-file-name-masks
-                '("\\.py\\'" flymake-pylint-init))
-  
- )
+(add-hook `text-mode-hook 'turn-on-visual-line-mode)
 
-(add-to-list 'load-path "~/.emacs.d/ess/lisp")
-(require 'ess-site)
+(defun turn-on-visual-line-mode-in-txt ()
+  (when (and (buffer-file-name)
+             (string-match "\.(|md|text|markdown|txt)$" (buffer-file-name)))
+    (turn-on-visual-line-mode)))
+
+;; (when (load "flymake" t)
+;;   (defun flymake-pylint-init ()
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 		       'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;                         temp-file
+;;                         (file-name-directory buffer-file-name))))
+;;       (list "epylint" (list temp-file))))
+  
+;;    (add-to-list 'flymake-allowed-file-name-masks
+;;                 '("\\.py\\'" flymake-pylint-init))
+
+;;    (defun flymake-jslint-init ()
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;; 		       'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;                         temp-file
+;;                         (file-name-directory buffer-file-name))))
+;;       (list "jslint" (list "--terse" "--nomen" (format "--indent=%d" js-indent-level) local-file))))
+
+;;   (setq flymake-err-line-patterns
+;; 	(cons '("^\\(.*\\)(\\([[:digit:]]+\\)):\\(.*\\)$"
+;; 		1 2 nil 3)
+;; 	      flymake-err-line-patterns))
+  
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.js\\'" flymake-jslint-init))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.json\\'" flymake-jslint-init)))
+
+;; (add-hook 'python-mode-hook
+;;           '(lambda ()
+;;                    (flymake-mode)))
+
+;; (add-hook 'js-mode-hook
+;; 	  (lambda () (flymake-mode t)))
+
+
+;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
+;(require 'ess-site)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- ;'(ecb-display-default-dir-after-start ~/code)
- ;'(ecb-layout-window-sizes nil)
- ;'(ecb-options-version "2.40")
- ;'(ecb-source-path (quote (("/home/andrew/code/nimbus" "nimbus"))))
  '(kill-whole-line t)  
  '(x-select-enable-clipboard t)
  '(frame-background-mode (quote dark))
@@ -231,12 +234,11 @@ Emacs buffer are those starting with “*”."
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
 )
 
-(when window-system
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#070606" :foreground "#eadbcd" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :family "Inconsolata"))))
  '(cursor ((t (:background "#ff0099"))))
  '(font-lock-comment-face ((t (:foreground "#5f7189"))))
@@ -246,7 +248,6 @@ Emacs buffer are those starting with “*”."
  '(link ((nil (:foreground "blue"))))
  '(region ((nil (:background "#550022"))))
  '(secondary-selection ((((class color) (min-colors 88) (background light)) (:background "pink" :foreground "black")))))
-)
 
 ;(defadvice isearch-search (after isearch-no-fail activate)
 ;  (unless isearch-success
