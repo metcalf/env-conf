@@ -1,0 +1,2 @@
+mkdir ~/code/.emacs_autosaves
+mkdir ~/code/.emacs_backups
