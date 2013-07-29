@@ -113,3 +113,5 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -a '' -t"
 export VBOX_USER_HOME=~/.VirtualBox
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
