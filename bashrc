@@ -70,7 +70,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    alias ls='ls -G --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -84,14 +84,9 @@ alias ll='ls -alFs'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+# various other aliases
+alias ..='cd ..'
+alias russian_roulette="if [ $RANDOM -gte 10000 ] then; sudo rm -rf /; fi;"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -105,6 +100,56 @@ function cdl() {
     builtin cd "$1"
     ls -lastp | grep -v \\.pyc$ | grep -v "\\./$" | grep -v " \\." | head -n15
     echo "..."
+}
+
+# By Evan Broder:
+# I got tired of bundle exec'ing things, so the following will automatically prefix 
+# any gem-installed command with "bundle exec" if you're in a directory with a Gemfile:
+
+_find_gemfile() {
+    local dir
+    dir="$(pwd)"
+    while [ "$dir" != "/" ]; do
+        if [ -e "${dir}/Gemfile" ]; then
+            echo "${dir}/Gemfile"
+            return 0
+        fi
+        dir="$(dirname "$dir")"
+    done
+
+    return 1
+}
+
+_maybe_bundleify() {
+    if _find_gemfile >/dev/null; then
+        command bundle exec "$@"
+    else
+        command "$@"
+    fi
+}
+
+for cmd in $(ls ~/.rbenv/shims); do
+    case $cmd in
+        gem|irb|bundle) continue ;;
+        *) eval "$cmd() { _maybe_bundleify $cmd \"\$@\"; }" ;;
+    esac
+done
+
+# By Evan Broder:
+# You'll probably also want the following alias for pry so that you
+# can still run it even in repositories that don't include pry in their Gemfile:
+
+pry() {
+    local gemfile
+    if gemfile="$(_find_gemfile)"; then
+        if grep -q pry "${gemfile}.lock"; then
+            command bundle exec pry "$@"
+        else
+            command pry -rbundler/setup "$@"
+        fi
+    else
+        command pry "$@"
+    fi
 }
 
 export PATH

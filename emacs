@@ -23,7 +23,7 @@
 (package-initialize)
 
 (defvar prelude-packages
-  '(clojure-mode paredit nrepl flycheck)
+  '(coffee-mode clojure-mode paredit nrepl flycheck)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -152,9 +152,6 @@
 ;(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
 (add-to-list 'less-css-lessc-options (concatenate 'string "--include-path=" (expand-file-name "~/code/bootstrap/less")))
 (setq less-css-compile-at-save t)
-
-(add-to-list 'load-path "~/.emacs.d/coffee-mode")
-(require 'coffee-mode)
 
 (setq coffee-tab-width 2)
 (setq coffee-js-mode 'js-mode)

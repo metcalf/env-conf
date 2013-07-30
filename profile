@@ -8,6 +8,8 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+source $HOME/.rbenvrc
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -16,9 +18,24 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
+add_to_path() {
+    [ -d "$1" ] && export PATH="$PATH:$1"
+}
 
-eval "$(rbenv init -)"
+add_to_path ~/stripe/password-vault/bin
+add_to_path ~/stripe/space-commander/bin
+add_to_path ~/stripe/pay-server/scripts/bin
+add_to_path ~/stripe/henson/bin
+add_to_bath ~/bin
+
+### BEGIN HENSON
+export PATH="/Users/andrew/stripe/henson/bin:$PATH"
+### END HENSON
+
+### BEGIN HENSON
+export PATH="/Users/andrew/stripe/henson/bin:$PATH"
+### END HENSON
+
+### BEGIN HENSON
+export PATH="/Users/andrew/stripe/henson/bin:$PATH"
+### END HENSON
