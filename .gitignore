@@ -11,6 +11,7 @@ autosaves/
 auto-save-list
 tramp
 .\#*
+emacs.d/elpa/
 
 # Org-mode
 .org-id-locations
