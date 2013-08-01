@@ -26,15 +26,7 @@ add_to_path ~/stripe/password-vault/bin
 add_to_path ~/stripe/space-commander/bin
 add_to_path ~/stripe/pay-server/scripts/bin
 add_to_path ~/stripe/henson/bin
-add_to_bath ~/bin
-
-### BEGIN HENSON
-export PATH="/Users/andrew/stripe/henson/bin:$PATH"
-### END HENSON
-
-### BEGIN HENSON
-export PATH="/Users/andrew/stripe/henson/bin:$PATH"
-### END HENSON
+add_to_path ~/bin
 
 ### BEGIN HENSON
 export PATH="/Users/andrew/stripe/henson/bin:$PATH"
