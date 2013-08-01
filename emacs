@@ -6,6 +6,7 @@
 (setq js-indent-level 2)
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
+(setq ruby-deep-indent-paren nil)
 
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
@@ -14,6 +15,9 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (add-to-list 'load-path "~/.emacs.d")
+
+(require 'rbenv)
+(global-rbenv-mode)
 
 (require 'cl)
 (require 'package)
@@ -75,6 +79,7 @@
   (ac-config-default)
   (setq ac-use-menu-map t)
   (setq ac-ignore-case nil)
+  (setq create-lockfiles nil)
 
 ;;   (require 'tabbar)
 ;;   (tabbar-mode t)
