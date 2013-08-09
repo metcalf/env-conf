@@ -220,6 +220,27 @@
 ;; (add-hook 'js-mode-hook
 ;; 	  (lambda () (flymake-mode t)))
 
+(defun strip-trailing-newlines (str)
+  (replace-regexp-in-string "\n$" "" str))
+
+(defun sh-cwd (working-directory command)
+  (shell-command-to-string (concat "cd " working-directory " && " command)))
+
+(defun am-git-open (repo-path)
+  (interactive (list (ido-read-directory-name "GIT Repo: ")))
+  (let* ((repo-base-path (file-name-as-directory
+			  (strip-trailing-newlines
+			   (sh-cwd repo-path "git rev-parse --show-toplevel"))))
+	 (changed-files (mapcar (lambda (file) (concat repo-base-path (strip-trailing-newlines file)))
+				(split-string
+				 (strip-trailing-newlines
+				  (sh-cwd repo-base-path "git diff $(git merge-base master HEAD) HEAD --name-only"))
+				 "[\r\n]+"))))
+    (progn
+      (dolist (path (cdr changed-files))
+	(find-file-noselect path))
+      (unless (string= repo-base-path (car changed-files))
+	(find-file (car changed-files))))))
 
 ;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
 ;(require 'ess-site)
