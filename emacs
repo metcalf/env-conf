@@ -7,6 +7,8 @@
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
 (setq ruby-deep-indent-paren nil)
+(setq tab-width 4)
+(setq indent-tabs-mode nil)
 
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
@@ -23,11 +25,11 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+	         '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (defvar prelude-packages
-  '(coffee-mode clojure-mode paredit nrepl flycheck)
+  '(coffee-mode clojure-mode paredit nrepl flycheck scala-mode web-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -49,8 +51,7 @@
 (setq flycheck-highlighting-mode 'lines)
 
 (autoload 'octave-mode "octave-mod" nil t)
-(setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+
 (add-hook 'octave-mode-hook
           (lambda ()
             (abbrev-mode 1)
@@ -58,97 +59,8 @@
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
 
-; Read path on OS X
-(when (file-exists-p "/etc/paths")
-  (defun read-system-path ()
-    (with-temp-buffer
-      (insert-file-contents "/etc/paths")
-      (goto-char (point-min))
-      (replace-regexp "\n" ":")
-      (thing-at-point 'line)))
-  (setenv "PATH" (read-system-path)))
-(setq exec-path (split-string (getenv "PATH") path-separator))
-
-(when window-system
-  (set-scroll-bar-mode 'right)
-  (tool-bar-mode -1)
-
-  (add-to-list 'load-path "~/.emacs.d/autocomplete")
-  (require 'auto-complete-config)		
-  (add-to-list 'ac-dictionary-directories "/home/andrew/.emacs.d/autocomplete/ac-dict")
-  (ac-config-default)
-  (setq ac-use-menu-map t)
-  (setq ac-ignore-case nil)
-  (setq create-lockfiles nil)
-
-;;   (require 'tabbar)
-;;   (tabbar-mode t)
-;;   (defun tabbar-buffer-groups ()
-;;     "Return the list of group names the current buffer belongs to.
-;; This function is a custom function for tabbar-mode's tabbar-buffer-groups.
-;; This function group all buffers into 3 groups:
-;; Those Dired, those user buffer, and those emacs buffer.
-;; Emacs buffer are those starting with “*”."
-;;     (list
-;;      (cond
-;;       ((string-equal "*" (substring (buffer-name) 0 1))
-;;        "Emacs Buffer"
-;;        )
-;;       ((and 
-;; 	(> (length (buffer-name)) 23)
-;; 	(or
-;; 	 (string-equal "mumamo-fetch-major-mode" (substring (buffer-name) 0 23))
-;; 	 (string-equal "template-indent-buffer" (substring (buffer-name) -22)))
-;; 	"Emacs Buffer"
-;; 	))
-;;       ((eq major-mode 'dired-mode)
-;;        "Dired"
-;;        )
-;;       (t
-;;        "User Buffer"
-;;        )
-;;       ))) 
-
-
-;;   (setq tabbar-buffer-groups-function 'tabbar-buffer-groups)
-
-;;   (setq speedbar-mode-hook '(lambda ()
-;;   			      (interactive)
-;;   			      (other-frame 0)))
-;;     (speedbar 1)
-)
-
 (require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
 (require 'whitespace)
-
-; For chef
-(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
-
-;(load-file "~/.emacs.d/cedet-1.0/common/cedet.el")
-;(global-ede-mode 1)                      ; Enable the Project management system
-;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-;(global-srecode-minor-mode 1)            ; Enable template insertion menu
-
-;(load "~/.emacs.d/nxhtml/autostart.el")
-(setq mumamo-background-colors nil)
-;(require 'jinja)
-(add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-
-;; Mumamo is making emacs 23.3 freak out:
-;; (when (and (equal emacs-major-version 23)
-;;            (equal emacs-minor-version 3))
-;;   (eval-after-load "bytecomp"
-;;     '(add-to-list 'byte-compile-not-obsolete-vars
-;;                   'font-lock-beginning-of-syntax-function))
-;;   ;; tramp-compat.el clobbers this variable!
-;;   (eval-after-load "tramp-compat"
-;;     '(add-to-list 'byte-compile-not-obsolete-vars
-;;                   'font-lock-beginning-of-syntax-function)))
-
-;(ido-mode t)
-;(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 
 (require 'textmate)
 (textmate-mode)
@@ -168,13 +80,24 @@
        (coffee-cos-mode t))
 )
 
-(add-hook 'coffee-mode-hook
-  '(lambda() (coffee-custom)))
+;(add-hook 'coffee-mode-hook
+;  '(lambda() (coffee-custom)))
 
 (add-to-list 'auto-mode-alist '("\\.txt$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . text-mode))
 (add-to-list 'auto-mode-alist '("\\.text$" . text-mode))
+
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+(add-to-list 'auto-mode-alist '("^\\.?emacs$" . emacs-lisp-mode))
+
+(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode)) ; For chef
+
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (add-hook `text-mode-hook 'turn-on-visual-line-mode)
 
@@ -182,43 +105,6 @@
   (when (and (buffer-file-name)
              (string-match "\.(|md|text|markdown|txt)$" (buffer-file-name)))
     (turn-on-visual-line-mode)))
-
-;; (when (load "flymake" t)
-;;   (defun flymake-pylint-init ()
-;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;; 		       'flymake-create-temp-inplace))
-;;            (local-file (file-relative-name
-;;                         temp-file
-;;                         (file-name-directory buffer-file-name))))
-;;       (list "epylint" (list temp-file))))
-  
-;;    (add-to-list 'flymake-allowed-file-name-masks
-;;                 '("\\.py\\'" flymake-pylint-init))
-
-;;    (defun flymake-jslint-init ()
-;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;; 		       'flymake-create-temp-inplace))
-;;            (local-file (file-relative-name
-;;                         temp-file
-;;                         (file-name-directory buffer-file-name))))
-;;       (list "jslint" (list "--terse" "--nomen" (format "--indent=%d" js-indent-level) local-file))))
-
-;;   (setq flymake-err-line-patterns
-;; 	(cons '("^\\(.*\\)(\\([[:digit:]]+\\)):\\(.*\\)$"
-;; 		1 2 nil 3)
-;; 	      flymake-err-line-patterns))
-  
-;;   (add-to-list 'flymake-allowed-file-name-masks
-;;                '("\\.js\\'" flymake-jslint-init))
-;;   (add-to-list 'flymake-allowed-file-name-masks
-;;                '("\\.json\\'" flymake-jslint-init)))
-
-;; (add-hook 'python-mode-hook
-;;           '(lambda ()
-;;                    (flymake-mode)))
-
-;; (add-hook 'js-mode-hook
-;; 	  (lambda () (flymake-mode t)))
 
 (defun strip-trailing-newlines (str)
   (replace-regexp-in-string "\n$" "" str))
@@ -242,15 +128,44 @@
       (unless (string= repo-base-path (car changed-files))
 	(find-file (car changed-files))))))
 
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
 ;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
 ;(require 'ess-site)
+
+; Read path on OS X
+(when (file-exists-p "/etc/paths")
+  (defun read-system-path ()
+    (with-temp-buffer
+      (insert-file-contents "/etc/paths")
+      (goto-char (point-min))
+      (replace-regexp "\n" ":")
+      (thing-at-point 'line)))
+  (setenv "PATH" (read-system-path)))
+(setq exec-path (split-string (getenv "PATH") path-separator))
+
+(when window-system
+  (set-scroll-bar-mode 'right)
+  (tool-bar-mode -1)
+
+  (add-to-list 'load-path "~/.emacs.d/autocomplete")
+  (require 'auto-complete-config)
+  (add-to-list 'ac-dictionary-directories "/home/andrew/.emacs.d/autocomplete/ac-dict")
+  (ac-config-default)
+  (setq ac-use-menu-map t)
+  (setq ac-ignore-case nil)
+  (setq create-lockfiles nil)
+)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(kill-whole-line t)  
+ '(kill-whole-line t)
  '(x-select-enable-clipboard t)
  '(frame-background-mode (quote dark))
  '(inhibit-startup-screen t)
@@ -272,17 +187,13 @@
  '(region ((nil (:background "#550022"))))
  '(secondary-selection ((((class color) (min-colors 88) (background light)) (:background "pink" :foreground "black")))))
 
-;(defadvice isearch-search (after isearch-no-fail activate)
-;  (unless isearch-success
-;    (ad-disable-advice 'isearch-search 'after 'isearch-no-fail)
-;    (ad-activate 'isearch-search)
-;    (isearch-repeat (if isearch-forward 'forward))
-;    (ad-enable-advice 'isearch-search 'after 'isearch-no-fail)
-;    (ad-activate 'isearch-search)))
-
 (global-set-key (kbd "C-S-z") 'undo)
 (global-set-key (kbd "C-S-x") 'kill-region)
 (global-set-key (kbd "C-S-c") 'kill-ring-save)
 (global-set-key (kbd "C-S-v") 'yank)
 (global-set-key (kbd "C-q") 'query-replace)
 (put 'downcase-region 'disabled nil)
+
+
+(load "server")
+(unless (server-running-p) (server-start))
