@@ -103,7 +103,7 @@ function cdl() {
 }
 
 # By Evan Broder:
-# I got tired of bundle exec'ing things, so the following will automatically prefix 
+# I got tired of bundle exec'ing things, so the following will automatically prefix
 # any gem-installed command with "bundle exec" if you're in a directory with a Gemfile:
 
 _find_gemfile() {
@@ -156,7 +156,7 @@ export PATH
 export PYTHONPATH="/usr/local/src/google_appengine/lib/ipaddr":$PYTHONPATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -a '' -t"
+export EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -a ""'
 export VBOX_USER_HOME=~/.VirtualBox
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
