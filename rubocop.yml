@@ -1,0 +1,16 @@
+# Put me in the home directory as .rubocop.yml to configure global rubocop
+
+MethodLength:
+  Max: 20
+
+LineLength:
+  Max: 90
+
+SpaceAroundOperators:
+  Enabled: false
+
+SpaceAroundBraces:
+  Enabled: false
+
+SpaceInsideHashLiteralBraces:
+  Enabled: false
