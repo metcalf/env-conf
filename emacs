@@ -9,6 +9,7 @@
 (setq ruby-deep-indent-paren nil)
 (setq tab-width 4)
 (setq indent-tabs-mode nil)
+(setq c-default-style "linux")
 
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
