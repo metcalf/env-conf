@@ -11,6 +11,8 @@
 (setq indent-tabs-mode nil)
 (setq c-default-style "linux")
 
+(define-coding-system-alias 'ascii-8bit 'iso-latin-1)
+
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/code/.emacs_backups/"))))
