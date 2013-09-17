@@ -27,6 +27,7 @@ add_to_path ~/stripe/space-commander/bin
 add_to_path ~/stripe/pay-server/scripts/bin
 add_to_path ~/stripe/henson/bin
 add_to_path ~/bin
+add_to_path /usr/local/lib/hadoop/bin
 
 ### BEGIN HENSON
 export PATH="/Users/andrew/stripe/henson/bin:$PATH"

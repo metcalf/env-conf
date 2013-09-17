@@ -92,11 +92,16 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
-(add-to-list 'auto-mode-alist '("^\\.?emacs$" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.?emacs$" . emacs-lisp-mode))
 
 (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode)) ; For chef
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+
+(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -129,10 +134,14 @@
       (unless (string= repo-base-path (car changed-files))
 	(find-file (car changed-files))))))
 
-(defun kill-other-buffers ()
+
+(defun kill-all-buffers ()
   "Kill all other buffers."
   (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+  (mapc
+   (lambda (x) (if (buffer-file-name x)
+		 (kill-buffer x)))
+   (buffer-list)))
 
 ;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
 ;(require 'ess-site)

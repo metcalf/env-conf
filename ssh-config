@@ -1,6 +1,3 @@
-host *.stripe.io
-port 30000
-
 ControlMaster auto
 ControlPath ~/.ssh/sockets/%r@%h-%p
 ControlPersist 600
