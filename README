@@ -1,10 +1,3 @@
-mkdir ~/code/.emacs_autosaves
-mkdir ~/code/.emacs_backups
+Install Source Code Pro font
 
-Install Inconsolata font
-defaults write com.apple.Finder AppleShowAllFiles TRUE
-killall Finder
-
-http://developer.rackspace.com/blog/speeding-up-ssh-session-creation.html
-mkdir ~/.ssh/sockets
-ln -s ~/code/env-conf/coffeelint-config.json ~/.coffeelint.json
+ruby configure.rb

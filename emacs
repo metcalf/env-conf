@@ -14,8 +14,8 @@
 (define-coding-system-alias 'ascii-8bit 'iso-latin-1)
 
 (custom-set-variables
-  '(auto-save-file-name-transforms '((".*" "~/code/.emacs_autosaves/\\1" t)))
-  '(backup-directory-alist '((".*" . "~/code/.emacs_backups/"))))
+  '(auto-save-file-name-transforms '((".*" "~/.emacs_autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs_backups/"))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -32,7 +32,7 @@
 (package-initialize)
 
 (defvar prelude-packages
-  '(coffee-mode clojure-mode paredit nrepl flycheck scala-mode web-mode)
+  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -100,6 +100,7 @@
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode)) ; Rack
 
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
 
@@ -189,7 +190,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#070606" :foreground "#eadbcd" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :family "Inconsolata"))))
+ '(default ((t (:inherit nil
+			 :stipple nil
+			 :background "#070606"
+			 :foreground "#eadbcd"
+			 :inverse-video nil
+			 :box nil
+			 :strike-through nil
+			 :overline nil
+			 :underline nil
+			 :slant normal
+			 :weight normal
+			 :height 140
+			 :width normal
+			 :family "Source Code Pro"))))
  '(cursor ((t (:background "#ff0099"))))
  '(font-lock-comment-face ((t (:foreground "#5f7189"))))
  '(font-lock-function-name-face ((((class color) (min-colors 88) (background dark)) (:foreground "#ff9966"))))
