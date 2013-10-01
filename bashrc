@@ -160,3 +160,7 @@ export EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -a ""'
 export VBOX_USER_HOME=~/.VirtualBox
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+if [ -f "$HOME/.bashrc-local" ]; then
+   . "$HOME/.bashrc-local"
+fi
