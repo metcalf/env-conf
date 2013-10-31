@@ -8,8 +8,13 @@
 (setq c-basic-offset 4)
 (setq ruby-deep-indent-paren nil)
 (setq tab-width 4)
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq c-default-style "linux")
+(setq whitespace-style (quote (tab-mark)))
+
+(setq web-mode-style-padding 2)
+(setq web-mode-script-padding 2)
+(setq web-mode-block-padding 2)
 
 (define-coding-system-alias 'ascii-8bit 'iso-latin-1)
 
@@ -32,7 +37,7 @@
 (package-initialize)
 
 (defvar prelude-packages
-  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode)
+  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode flycheck)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -63,7 +68,9 @@
                 (font-lock-mode 1))))
 
 (require 'yaml-mode)
+
 (require 'whitespace)
+(global-whitespace-mode)
 
 (require 'textmate)
 (textmate-mode)
