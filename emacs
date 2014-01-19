@@ -26,7 +26,13 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(add-to-list 'load-path "~/.emacs.d")
+(setq load-path
+      (append
+       '("~/.emacs.d"
+         "~/code/go/src/github.com/nsf/gocode/emacs/"
+         "/usr/local/go/misc/emacs/"
+         "~/code/go/src/github.com/dougm/goflymake")
+       load-path))
 
 (require 'cl)
 (require 'package)
@@ -85,6 +91,13 @@
 ;(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
 (add-to-list 'less-css-lessc-options (concatenate 'string "--include-path=" (expand-file-name "~/code/bootstrap/less")))
 (setq less-css-compile-at-save t)
+
+(require 'go-mode-load)
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+(require 'go-flycheck)
+
+(require 'go-autocomplete)
 
 (setq coffee-tab-width 2)
 (setq coffee-js-mode 'js-mode)

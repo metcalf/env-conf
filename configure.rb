@@ -23,6 +23,13 @@ BREW_PACKAGES = [
   'git',
   'wget',
   'mobile-shell',
+  'go',
+]
+
+GO_DEPS = [
+  'github.com/nsf/gocode',
+  'github.com/dougm/goflymake',
+  'code.google.com/p/rog-go/exp/cmd/godef',
 ]
 
 def yes_or_no_prompt(prompt, opts={})
@@ -101,6 +108,11 @@ def install_core
   puts 'Installing homebrew packages'
   BREW_PACKAGES.each do |pkg|
     `brew install #{pkg}`
+  end
+
+  puts 'Installing Go packages'
+  GO_DEPS.each do |dep|
+    `go get -u #{dep}`
   end
 end
 
