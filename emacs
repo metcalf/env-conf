@@ -10,7 +10,9 @@
 (setq tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq c-default-style "linux")
-(setq whitespace-style (quote (tab-mark)))
+(setq whitespace-style '(tab-mark))
+
+(setq column-marker-1-face '((t (:background "gray15"))))
 
 (setq web-mode-style-padding 2)
 (setq web-mode-script-padding 2)
@@ -26,9 +28,6 @@
 
 (add-to-list 'load-path "~/.emacs.d")
 
-(require 'rbenv)
-(global-rbenv-mode)
-
 (require 'cl)
 (require 'package)
 (add-to-list 'package-archives
@@ -37,7 +36,8 @@
 (package-initialize)
 
 (defvar prelude-packages
-  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode flycheck)
+  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode flycheck
+                auto-complete)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -55,6 +55,9 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+(require 'rbenv)
+(global-rbenv-mode)
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (setq flycheck-highlighting-mode 'lines)
 
@@ -71,6 +74,9 @@
 
 (require 'whitespace)
 (global-whitespace-mode)
+
+(require 'column-marker)
+(add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 80)))
 
 (require 'textmate)
 (textmate-mode)
@@ -93,34 +99,31 @@
 ;(add-hook 'coffee-mode-hook
 ;  '(lambda() (coffee-custom)))
 
-(add-to-list 'auto-mode-alist '("\\.txt$" . text-mode))
-(add-to-list 'auto-mode-alist '("\\.md$" . text-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown$" . text-mode))
-(add-to-list 'auto-mode-alist '("\\.text$" . text-mode))
+(setq auto-mode-alist
+      (append
+       '(("\\.txt$" . text-mode)
+         ("\\.md$" . text-mode)
+         ("\\.markdown$" . text-mode)
+         ("\\.text$" . text-mode)
+         ("\\.yml$" . yaml-mode)
+         ("\\.yaml$" . yaml-mode)
+         ("\\.?emacs$" . emacs-lisp-mode)
+         ("Vagrantfile$" . ruby-mode)
+         ("Rakefile$" . ruby-mode)
+         ("Gemfile$" . ruby-mode)
+         ("\\.gemspec$" . ruby-mode)
+         ("\\.ru$" . ruby-mode) ; Rack
+         ("\\.m$" . octave-mode)
+         ("\\.erb$" . web-mode)
+         ("\\.ejs$" . web-mode))
+       auto-mode-alist))
 
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
-(add-to-list 'auto-mode-alist '("\\.?emacs$" . emacs-lisp-mode))
-
-(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode)) ; For chef
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode)) ; Rack
-
-(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
-
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+(setq web-mode-engines-alist
+      '(("underscorejs"    . "\\.ejs\\'")))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (add-hook `text-mode-hook 'turn-on-visual-line-mode)
-
-(defun turn-on-visual-line-mode-in-txt ()
-  (when (and (buffer-file-name)
-             (string-match "\.(|md|text|markdown|txt)$" (buffer-file-name)))
-    (turn-on-visual-line-mode)))
 
 (defun strip-trailing-newlines (str)
   (replace-regexp-in-string "\n$" "" str))
@@ -170,13 +173,7 @@
 (when window-system
   (set-scroll-bar-mode 'right)
   (tool-bar-mode -1)
-
-  (add-to-list 'load-path "~/.emacs.d/autocomplete")
   (require 'auto-complete-config)
-  (add-to-list 'ac-dictionary-directories "/home/andrew/.emacs.d/autocomplete/ac-dict")
-  (ac-config-default)
-  (setq ac-use-menu-map t)
-  (setq ac-ignore-case nil)
   (setq create-lockfiles nil)
 )
 
@@ -226,7 +223,6 @@
 (global-set-key (kbd "C-S-v") 'yank)
 (global-set-key (kbd "C-q") 'query-replace)
 (put 'downcase-region 'disabled nil)
-
 
 (load "server")
 (unless (server-running-p) (server-start))
