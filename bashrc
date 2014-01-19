@@ -40,17 +40,17 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
 
-export MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
+# export MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[00;36m\]\w$(__git_ps1 ":\[\033[00;32m\]%s ")\[\033[00m\]\$ '
 else
@@ -87,6 +87,7 @@ alias l='ls -CF'
 # various other aliases
 alias ..='cd ..'
 alias russian_roulette="if [ $RANDOM -gte 10000 ] then; sudo rm -rf /; fi;"
+alias edit_each='while read -r line; do $EDITOR "$line"; done'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -158,8 +159,23 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -a ""'
 export VBOX_USER_HOME=~/.VirtualBox
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+add_to_path () {
+    [ -d "$1" ] && export PATH="$PATH:$1"
+}
+prepend_to_path () {
+    [ -d "$1" ] && export PATH="$1:$PATH"
+}
+
+add_to_path ./node_modules/.bin
+add_to_path /usr/local/heroku/bin
+add_to_path $HOME/code/go/bin
+prepend_to_path /usr/local/bin
+prepend_to_path /usr/local/sbin
+
+export GOPATH=$HOME/code/go
 
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"

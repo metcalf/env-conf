@@ -1,0 +1,12 @@
+[user]
+	name = Andrew Metcalf
+	email = andrew@stripe.com
+[alias]
+	st = status
+[color]
+	ui = auto
+[push]
+	default = upstream
+[branch "master"]
+	mergeoptions = --ff-only
+        autosetupmerge = always

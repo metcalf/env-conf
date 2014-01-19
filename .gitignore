@@ -12,6 +12,7 @@ auto-save-list
 tramp
 .\#*
 emacs.d/elpa/
+emacs.d/url/
 
 # Org-mode
 .org-id-locations
