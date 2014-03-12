@@ -11,12 +11,12 @@
 (setq-default indent-tabs-mode nil)
 (setq c-default-style "linux")
 (setq whitespace-style '(tab-mark))
-
 (setq column-marker-1-face '((t (:background "gray15"))))
-
 (setq web-mode-style-padding 2)
 (setq web-mode-script-padding 2)
 (setq web-mode-block-padding 2)
+
+(global-auto-revert-mode t)
 
 (define-coding-system-alias 'ascii-8bit 'iso-latin-1)
 
@@ -29,7 +29,7 @@
 (setq load-path
       (append
        '("~/.emacs.d"
-         "~/code/go/src/github.com/nsf/gocode/emacs/"
+         "~/code/go/src/github.com/nsf/gocodema/emacs/"
          "/usr/local/go/misc/emacs/"
          "~/code/go/src/github.com/dougm/goflymake")
        load-path))
@@ -43,7 +43,7 @@
 
 (defvar prelude-packages
   '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode flycheck
-                auto-complete)
+                auto-complete exec-path-from-shell)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -95,6 +95,7 @@
 (require 'go-mode-load)
 (add-hook 'before-save-hook 'gofmt-before-save)
 
+(setq goflymake-debug nil)
 (require 'go-flycheck)
 
 (require 'go-autocomplete)
@@ -172,23 +173,16 @@
 ;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
 ;(require 'ess-site)
 
-; Read path on OS X
-(when (file-exists-p "/etc/paths")
-  (defun read-system-path ()
-    (with-temp-buffer
-      (insert-file-contents "/etc/paths")
-      (goto-char (point-min))
-      (replace-regexp "\n" ":")
-      (thing-at-point 'line)))
-  (setenv "PATH" (read-system-path)))
-(setq exec-path (split-string (getenv "PATH") path-separator))
-
 (when window-system
   (set-scroll-bar-mode 'right)
   (tool-bar-mode -1)
   (require 'auto-complete-config)
+  (ac-config-default)
   (setq create-lockfiles nil)
 )
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
