@@ -79,27 +79,61 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
 alias ll='ls -alFs'
-alias la='ls -A'
+alias la='ls -CFA'
 alias l='ls -CF'
 
-# various other aliases
 alias ..='cd ..'
-alias russian_roulette="if [ $RANDOM -gte 10000 ] then; sudo rm -rf /; fi;"
+alias russian_roulette="if [ $RANDOM -gte 20000 ] then; sudo rm -rf /; fi;"
 alias edit_each='while read -r line; do $EDITOR "$line"; done'
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+# Detect and load bash-completion
+if [ -f /usr/local/etc/bash_completion ]; then
+  source /usr/local/etc/bash_completion
+  HAS_BASH_COMPLETION=1
+elif [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion
+  HAS_BASH_COMPLETION=1
 fi
+
+function bash_complete {
+  [ "$HAS_BASH_COMPLETION" = 1 ] && complete "$@"
+}
 
 function cdl() {
     builtin cd "$1"
     ls -lastp | grep -v \\.pyc$ | grep -v "\\./$" | grep -v " \\." | head -n15
     echo "..."
+}
+
+# Host completion for mosh
+if which -s mosh; then
+  _mosh() {
+      _get_comp_words_by_ref -n : cur prev
+    _known_hosts_real -a "$cur"
+  }
+  shopt -u hostcomplete && bash_complete -F _mosh mosh
+fi
+
+# Open at github
+gh() {
+  local url
+
+  url=$(git config --get remote.origin.url)
+  if [ $? != 0 ]; then
+    exit $?
+  fi
+  if [ "${url:0:15}" == "git@github.com:" ]; then
+    url=${url:15}
+  elif [ "${url:0:19}" == "https://github.com/" ]; then
+    url=${url:19}
+  else
+    echo "What kind of remote URL is $url anyways?"
+    exit 1
+  fi
+  url="https://github.com/${url%.git}"
+  open "$url"
 }
 
 # By Evan Broder:
@@ -153,7 +187,6 @@ pry() {
 }
 
 export PATH
-export PYTHONPATH="/usr/local/src/google_appengine/lib/ipaddr":$PYTHONPATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -a ""'
