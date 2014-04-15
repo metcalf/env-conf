@@ -95,7 +95,6 @@ alias edit_each='while read -r line; do $EDITOR "$line"; done'
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-source ~/.git-completion.sh
 
 function cdl() {
     builtin cd "$1"
