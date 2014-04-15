@@ -1,12 +1,53 @@
+[core]
+	excludesfile = ~/.gitignore
+	pager = less -F
+
 [user]
 	name = Andrew Metcalf
 	email = andrew@stripe.com
+
+[github]
+	user = jamesreggio
+
 [alias]
 	st = status
+	co = checkout
+	l = log --graph --abbrev-commit --decorate=short --format=format:'%C(bold blue)%h%C(reset)%C(bold magenta)%d%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset)'
+	ld = log --graph --abbrev-commit --decorate=short --date=relative --format=format:'%C(bold blue)%h%C(reset) %C(bold green)%ar%C(reset)%C(bold magenta)%d%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset)'
+	ll = log --graph --decorate=short
+	m = merge
+
 [color]
 	ui = auto
+	pager = true
+
+[color "diff"]
+	meta = yellow dim
+	frag = magenta
+	old = red
+	new = green
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = cyan
+
+[merge]
+	tool = meld
+[mergetool]
+	keepBackup = false
+
 [push]
 	default = upstream
+
+[branch]
+	autosetupmerge = true
+
 [branch "master"]
 	mergeoptions = --ff-only
-        autosetupmerge = always
+
+[rerere]
+	enabled = true
+
+[rebase]
+	autosquash = true
