@@ -4,14 +4,14 @@ require 'shellwords'
 require 'FileUtils'
 
 LINK_MAP = {
-    'bashrc' => '.bashrc',
-    'coffeelint-config.json' => '.coffeelint.json',
-    'emacs' => '.emacs',
-    'git-completion.sh' => '.git-completion.sh',
-    'emacs.d' => '.emacs.d',
-    'inputrc' => '.inputrc',
-#    'ssh-config' => '.ssh/config',
-    'rubocop.yml' => '.rubocop.yml',
+  'bashrc' => '.bashrc',
+  'coffeelint-config.json' => '.coffeelint.json',
+  'emacs' => '.emacs',
+  'git-completion.sh' => '.git-completion.sh',
+  'emacs.d' => '.emacs.d',
+  'inputrc' => '.inputrc',
+#  'ssh-config' => '.ssh/config',
+  'rubocop.yml' => '.rubocop.yml',
 }
 
 DIRECTORIES = [
@@ -26,6 +26,9 @@ BREW_PACKAGES = [
   'mobile-shell',
   'go',
   'grep --default-names',
+  'python',
+  'meld',
+  'bash-completion',
 ]
 
 GO_DEPS = [
