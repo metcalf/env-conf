@@ -20,3 +20,6 @@ TrailingComma:
 
 HashSyntax:
   Enabled: false
+
+WordArray:
+    Enabled: false

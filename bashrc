@@ -189,7 +189,7 @@ pry() {
 export PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c -a ""'
+export EDITOR='emacsclient -c -a ""'
 export VBOX_USER_HOME=~/.VirtualBox
 
 export JAVA_HOME=$(/usr/libexec/java_home)

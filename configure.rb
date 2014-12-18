@@ -12,12 +12,14 @@ LINK_MAP = {
   'inputrc' => '.inputrc',
 #  'ssh-config' => '.ssh/config',
   'rubocop.yml' => '.rubocop.yml',
+  'plugins.sbt' => '.sbt/0.13/plugins/plugins.sbt',
 }
 
 DIRECTORIES = [
   '.emacs_autosaves',
   '.emacs_backups',
-  '.ssh/sockets'
+  '.ssh/sockets',
+  '.sbt/0.13/plugins',
 ]
 
 BREW_PACKAGES = [
@@ -29,6 +31,8 @@ BREW_PACKAGES = [
   'python',
   'meld',
   'bash-completion',
+  'emacs --cocoa --srgb',
+  'sbt',
 ]
 
 GO_DEPS = [
@@ -121,6 +125,8 @@ def install_core
   BREW_PACKAGES.each do |pkg|
     `brew install #{pkg}`
   end
+
+  `ln -s #{`brew --prefix emacs`}/Emacs.app /Applications`
 
   puts 'Installing Go packages'
   GO_DEPS.each do |dep|

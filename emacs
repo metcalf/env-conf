@@ -8,6 +8,7 @@
 (setq c-basic-offset 4)
 (setq ruby-deep-indent-paren nil)
 (setq tab-width 4)
+(setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq c-default-style "linux")
 (setq whitespace-style '(tab-mark))
@@ -15,6 +16,8 @@
 (setq web-mode-style-padding 2)
 (setq web-mode-script-padding 2)
 (setq web-mode-block-padding 2)
+(setq require-final-newline t)
+(setq use-dialog-box nil)
 
 (global-auto-revert-mode t)
 
@@ -26,24 +29,24 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setenv "GOPATH" (concat (getenv "HOME") "/code/go"))
+
 (setq load-path
       (append
        '("~/.emacs.d"
-         "~/code/go/src/github.com/nsf/gocodema/emacs/"
          "/usr/local/go/misc/emacs/"
-         "~/code/go/src/github.com/dougm/goflymake")
+         (concat (getenv "GOPATH") "/src/github.com/nsf/gocode/emacs/"))
        load-path))
 
 (require 'cl)
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-	         '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 (package-initialize)
 
 (defvar prelude-packages
-  '(coffee-mode clojure-mode paredit nrepl scala-mode web-mode flycheck
-                auto-complete exec-path-from-shell)
+  '(coffee-mode clojure-mode paredit nrepl scala-mode2 web-mode flycheck
+                auto-complete exec-path-from-shell puppet-mode markdown-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -60,6 +63,15 @@
   (dolist (p prelude-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+
+(let ((ensime-path "/usr/local/share/ensime/elisp"))
+  (if (file-accessible-directory-p ensime-path)
+      (progn
+        (add-to-list 'load-path ensime-path)
+        (require 'ensime)
+        (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
+    (warn "Please download ensime to %s" ensime-path)))
 
 (require 'rbenv)
 (global-rbenv-mode)
@@ -95,10 +107,14 @@
 (require 'go-mode-load)
 (add-hook 'before-save-hook 'gofmt-before-save)
 
-(setq goflymake-debug nil)
-(require 'go-flycheck)
-
 (require 'go-autocomplete)
+
+(add-hook 'go-mode-hook
+  (function (lambda ()
+              (set (make-local-variable 'whitespace-style) '(empty)))))
+
+;(load "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+;(add-hook 'go-mode-hook 'go-oracle-mode)
 
 (setq coffee-tab-width 2)
 (setq coffee-js-mode 'js-mode)
@@ -116,9 +132,8 @@
 (setq auto-mode-alist
       (append
        '(("\\.txt$" . text-mode)
-         ("\\.md$" . text-mode)
-         ("\\.markdown$" . text-mode)
          ("\\.text$" . text-mode)
+         ("\\.rdoc$" . text-mode)
          ("\\.yml$" . yaml-mode)
          ("\\.yaml$" . yaml-mode)
          ("\\.?emacs$" . emacs-lisp-mode)

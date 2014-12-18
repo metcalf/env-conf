@@ -16,6 +16,7 @@
 	ld = log --graph --abbrev-commit --decorate=short --date=relative --format=format:'%C(bold blue)%h%C(reset) %C(bold green)%ar%C(reset)%C(bold magenta)%d%C(reset) %C(white)%s%C(reset) %C(dim white)%an%C(reset)'
 	ll = log --graph --decorate=short
 	m = merge
+	g = grep --break --heading --line-number
 
 [color]
 	ui = auto
@@ -38,7 +39,7 @@
 	keepBackup = false
 
 [push]
-	default = upstream
+	default = simple
 
 [branch]
 	autosetupmerge = true
@@ -51,3 +52,7 @@
 
 [rebase]
 	autosquash = true
+
+[grep]
+	lineNumber = true
+	patternType = perl
