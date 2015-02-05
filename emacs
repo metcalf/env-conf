@@ -150,9 +150,14 @@
 (setq web-mode-engines-alist
       '(("underscorejs"    . "\\.ejs\\'")))
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 (add-hook `text-mode-hook 'turn-on-visual-line-mode)
+
+(defun mode-aware-delete-trailing-whitespace ()
+  (unless (member major-mode '(markdown-mode))
+    (delete-trailing-whitespace)
+  ))
+
+(add-hook 'before-save-hook 'mode-aware-delete-trailing-whitespace)
 
 (defun strip-trailing-newlines (str)
   (replace-regexp-in-string "\n$" "" str))
