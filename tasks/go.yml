@@ -1,0 +1,8 @@
+---
+
+- name: Install Homebrew Go
+  homebrew: name=go state=present
+
+- name: Install packages
+  shell: GOPATH={{ gopath }} go get -u {{ item }}
+  with_items: go_packages

@@ -1,0 +1,4 @@
+---
+
+- name: Show all files in finder
+  command: defaults write com.apple.Finder AppleShowAllFiles TRUE

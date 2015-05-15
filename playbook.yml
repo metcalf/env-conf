@@ -1,0 +1,97 @@
+---
+- hosts: all
+
+  vars:
+    applications:
+      - firefox
+      - libreoffice
+      - spotify
+      - dropbox
+      - adium
+      - dash
+      - evernote
+      - gimp
+      - google-chrome
+      - google-earth
+      - skype
+      - pacifist
+      - pencil
+      - slack
+      - textexpander
+      - utc-menu-clock
+      - vmware-fusion
+      - virtualbox
+      - vlc
+      - xquartz
+      - wireshark
+      - utorrent
+    application_dir: /Applications
+    taps:
+      - homebrew/dupes
+      - homebrew/science
+    brews:
+      ant:
+      git: with-pcre
+      wget:
+      mobile-shell:
+      hub:
+      rsync:
+      grep: with-default-names
+      python:
+      bash-completion:
+      sbt:
+      cloc:
+      awscli:
+      curl:
+      emacs: with-cocoa
+      dfu-util:
+      gcc:
+      geoip: with-geoipupdate
+      gnu-sed: with-default-names
+      gnu-tar: with-default-names
+      hilite:
+      imagemagick:
+      maven:
+      mercurial:
+      minicom:
+      mosquitto:
+      netcat:
+      nmap:
+      node:
+      octave:
+      postgresql:
+      openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
+      scala:
+      sqlite:
+      unrar:
+    directories:
+      - .emacs_autosaves
+      - .emacs_backups
+      - .ssh/sockets
+      - .sbt/0.13/plugins
+      - code
+    homefiles:
+      bash_profile: .bash_profile
+      bashrc: .bashrc
+      coffeelint-config.json: .coffeelint.json
+      emacs: .emacs
+      emacs.d: .emacs.d
+      gitconfig: .gitconfig
+      inputrc: .inputrc
+      plugins.sbt: .sbt/0.13/plugins/plugins.sbt
+      rubocop.yml: .rubocop.yml
+      Fonts: Library/Fonts
+      com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
+      gitignore: .gitignore
+    go_packages:
+      - github.com/nsf/gocode
+      - github.com/dougm/goflymake
+      - code.google.com/p/rog-go/exp/cmd/godef
+
+    home_dir: "{{ lookup('env','HOME') }}"
+    gopath: "{{ home_dir }}/code/go"
+  tasks:
+    - include: tasks/files.yml
+    - include: tasks/preferences.yml
+    - include: tasks/homebrew.yml
+    - include: tasks/go.yml
