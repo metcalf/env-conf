@@ -87,7 +87,6 @@
       - github.com/nsf/gocode
       - github.com/dougm/goflymake
       - code.google.com/p/rog-go/exp/cmd/godef
-
     home_dir: "{{ lookup('env','HOME') }}"
     gopath: "{{ home_dir }}/code/go"
   tasks:

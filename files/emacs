@@ -66,13 +66,13 @@
       (package-install p))))
 
 
-(let ((ensime-path "/usr/local/share/ensime/elisp"))
-  (if (file-accessible-directory-p ensime-path)
-      (progn
-        (add-to-list 'load-path ensime-path)
-        (require 'ensime)
-        (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
-    (warn "Please download ensime to %s" ensime-path)))
+;(let ((ensime-path "/usr/local/share/ensime/elisp"))
+;  (if (file-accessible-directory-p ensime-path)
+;      (progn
+;        (add-to-list 'load-path ensime-path)
+;        (require 'ensime)
+;        (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
+;    (warn "Please download ensime to %s" ensime-path)))
 
 (require 'rbenv)
 (global-rbenv-mode)

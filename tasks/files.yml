@@ -1,9 +1,8 @@
 ---
 
 - name: Create directories
-  file: path={{ item }} state=directory
+  file: path={{ home_dir }}/{{ item }} state=directory
   with_items: directories
-
 
 - name: Remove ACLs that prevent moving the fonts folder
   command: chmod -f -N {{ home_dir }}/Library/Fonts
@@ -26,4 +25,3 @@
   shell: defaults read {{ home_dir }}/{{ item.value }}
   with_dict: homefiles
   when: "item.value|search('Preferences/.*\\.plist$')"
-
