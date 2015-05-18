@@ -1,0 +1,4 @@
+# ~/.octaverc
+
+PS1('>> ')
+warning ("off", "Octave:broadcast");

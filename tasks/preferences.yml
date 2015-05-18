@@ -1,4 +1,34 @@
 ---
+- name: Configure preferences
+  command: "{{ item }}"
+  with_items:
+    # Finder
+    - defaults write com.apple.Finder AppleShowAllFiles TRUE
+    - defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    - defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+    - defaults write com.apple.finder ShowPathbar -bool true
+    - defaults write com.apple.finder DisableAllAnimations -bool true
+    - defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+    - defaults write com.apple.finder FXPreferredViewStyle -string 'Nlsv' # Default to list view
+    - chflags nohidden {{ home_dir }}/Library
+    - defaults write com.apple.finder ShowSidebar -bool true
+    - defaults write com.apple.finder ShowRecentTags -bool false
+    - defaults write com.apple.finder NewWindowTarget -string "PfHm"
+    - defaults write com.apple.finder NewWindowTargetPath -string "file://$HOME"
+    - defaults write com.apple.finder QLEnableTextSelection -bool true
+    - defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    - defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+    - defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+    # Trackpad (not currently working)
+    - defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
+    - defaults write com.apple.AppleMultitouchTrackpad Dragging -int 1
+    - defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture -int 1
+    # Other
+    - defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false # Key repeat
+    - defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+    - defaults write com.apple.dock tilesize -int 28
+    - defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+    - defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ item.key }} "{enabled = 0; value = { parameters = ({{ item.value }}); type = 'standard'; }; }"
 
-- name: Show all files in finder
-  command: defaults write com.apple.Finder AppleShowAllFiles TRUE
+- name: Configure account picture
+  command: sudo dscl . create /Users/{{ ansible_env.USER }} Picture "{{ inventory_dir }}/files/{{ account_picture}}"

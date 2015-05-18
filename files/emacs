@@ -105,7 +105,6 @@
 (add-to-list 'less-css-lessc-options (concatenate 'string "--include-path=" (expand-file-name "~/code/bootstrap/less")))
 (setq less-css-compile-at-save t)
 
-(require 'go-mode)
 (add-hook 'before-save-hook 'gofmt-before-save)
 
 (require 'go-autocomplete)

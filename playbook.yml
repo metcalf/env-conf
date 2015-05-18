@@ -30,6 +30,7 @@
       - homebrew/dupes
       - homebrew/science
     brews:
+      android-sdk:
       ant:
       git: with-pcre
       wget:
@@ -68,7 +69,6 @@
       - .emacs_autosaves
       - .emacs_backups
       - .ssh/sockets
-      - .sbt/0.13/plugins
       - code
     homefiles:
       bash_profile: .bash_profile
@@ -80,17 +80,38 @@
       inputrc: .inputrc
       plugins.sbt: .sbt/0.13/plugins/plugins.sbt
       rubocop.yml: .rubocop.yml
+      octaverc: .octaverc
       Fonts: Library/Fonts
       com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
       gitignore: .gitignore
+      Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
+    python_packages:
+      - ipython
+      - autopep8
+      - flake8
+      - coverage
+      - pep8
+      - pyflakes
+      - pylint
     go_packages:
       - github.com/nsf/gocode
       - github.com/dougm/goflymake
       - code.google.com/p/rog-go/exp/cmd/godef
+    disable_hotkeys:
+         80: "65535, 123, 393216"
+         81: "65535, 124, 262144"
+         82: "65535, 124, 393216"
+         79: "65535, 123, 262144"
+         32: "65535, 126, 262144"
+         33: "65535, 125, 262144"
+         34: "65535, 126, 393216"
+         35: "65535, 125, 393216"
     home_dir: "{{ lookup('env','HOME') }}"
     gopath: "{{ home_dir }}/code/go"
+    account_picture: sugar-glider.png
   tasks:
     - include: tasks/files.yml
     - include: tasks/preferences.yml
     - include: tasks/homebrew.yml
+    - include: tasks/python.yml
     - include: tasks/go.yml

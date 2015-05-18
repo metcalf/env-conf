@@ -13,6 +13,7 @@ tramp
 .\#*
 emacs.d/elpa/
 emacs.d/url/
+ido.last
 
 # Org-mode
 .org-id-locations
@@ -47,4 +48,3 @@ Thumbs.db
 *.o
 *.so
 *.py[cod]
-

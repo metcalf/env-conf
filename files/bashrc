@@ -209,6 +209,23 @@ prepend_to_path /usr/local/sbin
 
 export GOPATH=$HOME/code/go
 
+add_to_path /usr/local/hadoop/bin
+add_to_path ~/stripe/hdfsync/bin
+add_to_path ~/code/android/sdk/platform-tools
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+add_to_path ~/stripe/password-vault/bin
+add_to_path ~/stripe/space-commander/bin
+add_to_path ~/stripe/henson/bin
+add_to_path ~/stripe/pay-server/scripts/bin
+
+# add password-vault bash completion
+[ -e ~/stripe/password-vault/bash_completion ] \
+        && . ~/stripe/password-vault/bash_completion
+
+source ~/.rbenvrc
+source ~/stripe/modelt-config/modelt-env.sh
+
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"
 fi
