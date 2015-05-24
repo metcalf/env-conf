@@ -13,7 +13,7 @@
   register: homefiles_stat
 
 - name: Backup unlinked home directory files
-  command: mv "{{ item.stat.path }}" "{{ inventory_dir }}/backups/{{ item.item.key }}.{{ ansible_date_time.epoch }}"
+  command: mv "{{ item.stat.path }}" "{{ backup_dir }}/{{ item.item.key }}.{{ ansible_date_time.epoch }}"
   when: item.stat.exists and not item.stat.islnk
   with_items: homefiles_stat.results
 

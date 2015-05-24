@@ -109,6 +109,9 @@
     home_dir: "{{ lookup('env','HOME') }}"
     gopath: "{{ home_dir }}/code/go"
     account_picture: sugar-glider.png
+    backup_dir: "{{ inventory_dir }}/backups"
+  vars_files:
+    - vars.yml
   tasks:
     - include: tasks/files.yml
     - include: tasks/preferences.yml

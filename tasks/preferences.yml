@@ -32,3 +32,8 @@
 
 - name: Configure account picture
   command: sudo dscl . create /Users/{{ ansible_env.USER }} Picture "{{ inventory_dir }}/files/{{ account_picture}}"
+
+- name: Periodically backup a list of apps
+  template: src=templates/app-list-backup.sh dest=/private/etc/periodic/weekly/998.app-list-backup mode=0750 owner=root group=wheel
+  become: yes
+  become_method: sudo
