@@ -49,8 +49,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
-# export MYPS='$(echo -n "${PWD/#$HOME/~}" | awk -F "/" '"'"'{if (length($0) > 14) { if (NF>4) print $1 "/" $2 "/.../" $(NF-1) "/" $NF; else if (NF>3) print $1 "/" $2 "/.../" $NF; else print $1 "/.../" $NF; } else print $0;}'"'"')'
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[00;36m\]\w$(__git_ps1 ":\[\033[00;32m\]%s ")\[\033[00m\]\$ '
 else
@@ -84,7 +82,7 @@ alias la='ls -CFA'
 alias l='ls -CF'
 
 alias ..='cd ..'
-alias russian_roulette="if [ $RANDOM -gte 20000 ] then; sudo rm -rf /; fi;"
+alias russian_roulette="[[ $RANDOM -gt 20000 ]] && sudo rm -rf /"
 alias edit_each='while read -r line; do $EDITOR "$line"; done'
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
@@ -115,6 +113,14 @@ if which -s mosh; then
   }
   shopt -u hostcomplete && bash_complete -F _mosh mosh
 fi
+
+# FASD caching and configuration
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
 
 # Open at github
 gh() {

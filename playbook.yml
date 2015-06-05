@@ -65,6 +65,8 @@
       scala:
       sqlite:
       unrar:
+      watch:
+      fasd:
     directories:
       - .emacs_autosaves
       - .emacs_backups
