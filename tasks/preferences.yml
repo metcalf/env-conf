@@ -28,7 +28,10 @@
     - defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
     - defaults write com.apple.dock tilesize -int 28
     - defaults write com.apple.menuextra.battery ShowPercent -string "YES"
-    - defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ item.key }} "{enabled = 0; value = { parameters = ({{ item.value }}); type = 'standard'; }; }"
+
+- name: Disable certain hotkeys
+  command: defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ item.key }} "{enabled = 0; value = { parameters = ({{ item.value }}); type = 'standard'; }; }"
+  with_dict: disable_hotkeys
 
 - name: Configure account picture
   command: sudo dscl . create /Users/{{ ansible_env.USER }} Picture "{{ inventory_dir }}/files/{{ account_picture}}"
