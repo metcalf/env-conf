@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 BACKUP_NAME=`date -u +'app-list-backup.%Y-%m-%dT%H%M%SZ.txt'`
 BACKUP_PATH="{{ backup_dir }}/$BACKUP_NAME"
@@ -14,10 +15,10 @@ echo -e "\n=== {{ home_dir }}/Applications ===" >> $BACKUP_PATH
 ls "{{ home_dir }}/Applications/" >> $BACKUP_PATH
 
 echo -e "\n=== brew list ===" >> $BACKUP_PATH
-brew list >> $BACKUP_PATH
+/usr/local/bin/brew list >> $BACKUP_PATH
 
 echo -e "\n=== brew info ===" >> $BACKUP_PATH
-brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
+/usr/local/bin/brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
 
 # Upload to Dropbox
 /usr/bin/curl -s -i --globoff --upload-file "$BACKUP_PATH" \
