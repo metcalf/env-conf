@@ -3,28 +3,30 @@
 
   vars:
     applications:
-      - firefox
-      - libreoffice
-      - spotify
-      - dropbox
+      - android-studio
       - adium
+      - dropbox
       - dash
       - evernote
+      - firefox
       - gimp
       - google-chrome
       - google-earth
-      - skype
+      - heroku-toolbelt
+      - libreoffice
       - pacifist
       - pencil
       - slack
+      - skype
+      - spotify
       - textexpander
       - utc-menu-clock
+      - utorrent
       - vmware-fusion
       - virtualbox
       - vlc
-      - xquartz
       - wireshark
-      - utorrent
+      - xquartz
     application_dir: /Applications
     taps:
       - homebrew/dupes
@@ -32,41 +34,41 @@
     brews:
       android-sdk:
       ant:
-      git: with-pcre
-      wget:
-      mobile-shell:
-      hub:
-      rsync:
-      grep: with-default-names
-      python:
-      bash-completion:
-      sbt:
-      cloc:
       awscli:
+      bash-completion:
+      cloc:
       curl:
-      emacs: with-cocoa
       dfu-util:
+      emacs: with-cocoa
+      fasd:
       gcc:
       geoip: with-geoipupdate
+      git: with-pcre
       gnu-sed: with-default-names
       gnu-tar: with-default-names
+      grep: with-default-names
       hilite:
+      hub:
       imagemagick:
       maven:
       mercurial:
       minicom:
+      mobile-shell:
       mosquitto:
       netcat:
       nmap:
       node:
       octave:
-      postgresql:
       openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
+      postgresql:
+      python:
+      rsync:
+      sbt:
       scala:
       sqlite:
       unrar:
       watch:
-      fasd:
+      wget:
     directories:
       - .emacs_autosaves
       - .emacs_backups
