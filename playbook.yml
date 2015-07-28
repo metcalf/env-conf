@@ -91,6 +91,7 @@
       Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
     node_modules:
       - eslint
+      - eslint-plugin-react
     python_packages:
       - ipython
       - autopep8
