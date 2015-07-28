@@ -4,6 +4,7 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq js-indent-level 2)
+(setq web-mode-code-indent-offset 2)
 (setq scroll-preserve-screen-position t)
 (setq c-basic-offset 4)
 (setq ruby-deep-indent-paren nil)
@@ -128,6 +129,12 @@
 ;(add-hook 'coffee-mode-hook
 ;  '(lambda() (coffee-custom)))
 
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers '(javascript-jshint))
+
+(with-eval-after-load 'flycheck
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
+
 (setq auto-mode-alist
       (append
        '(("\\.txt$" . text-mode)
@@ -143,11 +150,16 @@
          ("\\.ru$" . ruby-mode) ; Rack
          ("\\.m$" . octave-mode)
          ("\\.erb$" . web-mode)
-         ("\\.ejs$" . web-mode))
+         ("\\.ejs$" . web-mode)
+         ("\\.js$" . web-mode) ; to support JSX
+         ("\\.json$" . js-mode))
        auto-mode-alist))
 
 (setq web-mode-engines-alist
       '(("underscorejs"    . "\\.ejs\\'")))
+
+(setq web-mode-content-types-alist
+  '(("jsx" . "\\.js[x]?\\'")))
 
 (add-hook `text-mode-hook 'turn-on-visual-line-mode)
 
