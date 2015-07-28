@@ -207,23 +207,22 @@ prepend_to_path () {
     [ -d "$1" ] && export PATH="$1:$PATH"
 }
 
-add_to_path ./node_modules/.bin
-add_to_path /usr/local/heroku/bin
-add_to_path $HOME/code/go/bin
 prepend_to_path /usr/local/bin
 prepend_to_path /usr/local/sbin
-
-export GOPATH=$HOME/code/go
+add_to_path ./node_modules/.bin
+add_to_path $HOME/code/go/bin
 
 add_to_path /usr/local/hadoop/bin
 add_to_path ~/stripe/hdfsync/bin
-add_to_path ~/code/android/sdk/platform-tools
-export ANDROID_HOME=/usr/local/opt/android-sdk
 
 add_to_path ~/stripe/password-vault/bin
 add_to_path ~/stripe/space-commander/bin
-add_to_path ~/stripe/henson/bin
 add_to_path ~/stripe/pay-server/scripts/bin
+
+add_to_path ~/code/android/sdk/platform-tools
+
+export GOPATH=$HOME/code/go
+export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # add password-vault bash completion
 [ -e ~/stripe/password-vault/bash_completion ] \
