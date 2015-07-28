@@ -104,6 +104,8 @@
       - github.com/dougm/goflymake
       - code.google.com/p/rog-go/exp/cmd/godef
     disable_hotkeys:
+         60: "32, 49, 1048576"
+         61: "32, 49, 1572864"
          80: "65535, 123, 393216"
          81: "65535, 124, 262144"
          82: "65535, 124, 393216"
