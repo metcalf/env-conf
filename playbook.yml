@@ -89,6 +89,8 @@
       com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
       gitignore: .gitignore
       Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
+    node_modules:
+      - eslint
     python_packages:
       - ipython
       - autopep8
@@ -122,3 +124,4 @@
     - include: tasks/homebrew.yml
     - include: tasks/python.yml
     - include: tasks/go.yml
+    - include: tasks/node.yml
