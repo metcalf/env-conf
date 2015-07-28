@@ -6,19 +6,12 @@ vars.yml
 autosaves/
 *~
 \#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
 .elc
 auto-save-list
 tramp
 .\#*
-emacs.d/elpa/
-emacs.d/url/
+files/emacs.d/elpa/
 ido.last
-
-# Org-mode
-.org-id-locations
-*_archive
 
 # Logs and databases #
 ######################
