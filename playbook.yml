@@ -1,6 +1,5 @@
 ---
 - hosts: all
-
   vars:
     applications:
       - android-studio
@@ -37,6 +36,7 @@
       awscli:
       bash-completion:
       cloc:
+      coreutils:
       curl:
       dfu-util:
       emacs: with-cocoa
