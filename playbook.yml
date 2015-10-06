@@ -19,8 +19,8 @@
       - skype
       - spotify
       - textexpander
+      - transmission
       - utc-menu-clock
-      - utorrent
       - vmware-fusion
       - virtualbox
       - vlc
@@ -60,6 +60,7 @@
       node:
       octave:
       openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
+      p7zip:
       postgresql:
       python:
       rsync:
@@ -103,6 +104,7 @@
     go_packages:
       - github.com/nsf/gocode
       - github.com/dougm/goflymake
+      - golang.org/x/tools/cmd/goimports
       - code.google.com/p/rog-go/exp/cmd/godef
     disable_hotkeys:
          60: "32, 49, 1048576"
