@@ -66,6 +66,14 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+; Disable the bell in cases where it's useless and annoying
+(defun my-bell-function ()
+  (unless (memq this-command
+        '(isearch-abort abort-recursive-edit exit-minibuffer
+              keyboard-quit mwheel-scroll down up next-line previous-line
+              backward-char forward-char))
+    (ding)))
+(setq ring-bell-function 'my-bell-function)
 
 ;(let ((ensime-path "/usr/local/share/ensime/elisp"))
 ;  (if (file-accessible-directory-p ensime-path)
@@ -110,6 +118,7 @@
 
 (add-hook 'go-mode-hook
           (function (lambda ()
+                      (setq gofmt-command "goimports")
                       (add-hook 'before-save-hook 'gofmt-before-save)
                       (set (make-local-variable 'whitespace-style) '(empty)))))
 
