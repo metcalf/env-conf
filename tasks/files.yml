@@ -5,7 +5,7 @@
   with_items: directories
 
 - name: Remove ACLs that prevent moving the fonts folder
-  command: chmod -f -N "{{ home_dir }}/Library/Fonts"
+  command: /bin/chmod -f -N "{{ home_dir }}/Library/Fonts"
 
 - name: Stat homefiles
   stat: follow=no path="{{ home_dir }}/{{ item.value }}"
