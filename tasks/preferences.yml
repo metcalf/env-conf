@@ -39,12 +39,10 @@
 - name: Unhide various root folders
   command: "sudo chflags nohidden /{{ item }}"
   with_items:
-    - usr
     - tmp
     - opt
     - etc
     - var
-    - bin
 
 - name: Get menu extras
   command: "defaults read com.apple.systemuiserver menuExtras"
