@@ -30,6 +30,7 @@
     taps:
       - homebrew/dupes
       - homebrew/science
+      - homebrew/services
     brews:
       android-sdk:
       ant:
