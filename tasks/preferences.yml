@@ -53,6 +53,7 @@
   when: "'{{ item }}' not in menu_extras.stdout"
   with_items:
      - "/System/Library/CoreServices/Menu Extras/Volume.menu"
+     - "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
   register: menu_extras_result
 
 - name: Kick SystemUIServer
@@ -62,4 +63,10 @@
 - name: Periodically backup a list of apps
   template: src=templates/app-list-backup.sh dest=/private/etc/periodic/weekly/998.app-list-backup mode=0750 owner=root group=wheel
   become: yes
-  become_method: sudo
+
+- name: Allow homebrew bash shell
+  lineinfile: dest=/etc/shells line="/usr/local/bin/bash"
+  become: yes
+
+- name: Default to homebrew bash shell
+  command: chsh -s /usr/local/bin/bash
