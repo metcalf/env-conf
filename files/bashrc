@@ -207,9 +207,6 @@ prepend_to_path () {
     [ -d "$1" ] && export PATH="$1:$PATH"
 }
 
-prepend_to_path /usr/local/opt/coreutils/libexec/gnubin
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
 prepend_to_path /usr/local/bin
 prepend_to_path /usr/local/sbin
 add_to_path ./node_modules/.bin
