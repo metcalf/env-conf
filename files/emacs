@@ -1,24 +1,29 @@
-(setq buffer-auto-save-file-name nil)
-(setq make-backup-files nil)
-(setq-default truncate-lines t)
-(setq line-number-mode t)
-(setq column-number-mode t)
-(setq js-indent-level 2)
-(setq web-mode-code-indent-offset 2)
-(setq scroll-preserve-screen-position t)
-(setq c-basic-offset 4)
-(setq ruby-deep-indent-paren nil)
-(setq tab-width 4)
-(setq default-tab-width 4)
+(setq buffer-auto-save-file-name nil
+      make-backup-files nil
+      line-number-mode t
+      column-number-mode t
+      js-indent-level 2
+      web-mode-code-indent-offset 2
+      scroll-preserve-screen-position t
+      c-basic-offset 4
+      tab-width 4
+      default-tab-width 4
+      c-default-style "linux"
+      whitespace-style '(tab-mark)
+      column-marker-1-face '((t (:background "gray15")))
+      web-mode-style-padding 2
+      web-mode-script-padding 2
+      web-mode-block-padding 2
+      require-final-newline t
+      use-dialog-box nil
+      ruby-align-chained-calls nil
+      ruby-align-to-stmt-keywords nil
+      ruby-deep-indent-paren nil
+      ruby-deep-indent-paren-style nil
+      ruby-use-smie t)
 (setq-default indent-tabs-mode nil)
-(setq c-default-style "linux")
-(setq whitespace-style '(tab-mark))
-(setq column-marker-1-face '((t (:background "gray15"))))
-(setq web-mode-style-padding 2)
-(setq web-mode-script-padding 2)
-(setq web-mode-block-padding 2)
-(setq require-final-newline t)
-(setq use-dialog-box nil)
+(setq-default truncate-lines t)
+(show-paren-mode 1)
 
 (global-auto-revert-mode t)
 
@@ -34,7 +39,7 @@
 
 (setq load-path
       (append
-       '("~/.emacs.d"
+       '("~/.emacs.d/lisp"
          "/usr/local/go/misc/emacs/"
          (concat (getenv "GOPATH") "/src/github.com/nsf/gocode/emacs/"))
        load-path))
@@ -210,9 +215,6 @@
 		 (kill-buffer x)))
    (buffer-list)))
 
-;(add-to-list 'load-path "~/.emacs.d/ess/lisp")
-;(require 'ess-site)
-
 (when window-system
   (set-scroll-bar-mode 'right)
   (tool-bar-mode -1)
@@ -262,8 +264,8 @@
  '(font-lock-string-face ((t (:foreground "#92d170"))))
  '(link ((nil (:foreground "blue"))))
  '(region ((nil (:background "#550022"))))
- '(secondary-selection ((((class color) (min-colors 88) (background light)) (:background "pink" :foreground "black")))))
-
+ '(secondary-selection ((((class color) (min-colors 88) (background light)) (:background "pink" :foreground "black"))))
+ '(show-paren-match ((((class color) (min-colors 88) (background light)) (:background "pink" :foreground "black")))))
 (global-set-key (kbd "C-S-z") 'undo)
 (global-set-key (kbd "C-S-x") 'kill-region)
 (global-set-key (kbd "C-S-c") 'kill-ring-save)
