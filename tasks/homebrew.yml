@@ -18,14 +18,6 @@
   homebrew: name={{ item.key }} state=present install_options={{ item.value }}
   with_dict: brews
 
-- name: Check homebrew-cask is installed
-  stat: path=/usr/local/bin/brew-cask.rb
-  register: brew_cask_installed
-
-- name: Install homebrew-cask
-  shell: brew tap phinze/cask && brew upgrade brew-cask || brew install brew-cask
-  when: brew_cask_installed.stat.exists == false
-
 - name: Check for installed casks
   shell: brew cask list
   register: installed_cask_applications

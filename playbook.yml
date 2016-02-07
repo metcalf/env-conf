@@ -22,7 +22,6 @@
       - textexpander
       - transmission
       - utc-menu-clock
-      - vmware-fusion
       - virtualbox
       - vlc
       - wireshark
@@ -32,6 +31,7 @@
       - homebrew/dupes
       - homebrew/science
       - homebrew/services
+      - caskroom/versions
     brews:
       android-sdk:
       ant:
