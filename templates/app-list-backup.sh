@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-set -e
+set -eux
 
 BACKUP_NAME=`date -u +'app-list-backup.%Y-%m-%dT%H%M%SZ.txt'`
 BACKUP_PATH="{{ backup_dir }}/$BACKUP_NAME"
 API_UPLOAD_URL="https://api-content.dropbox.com/1/files_put"
+export HOME="{{ home_dir }}"
 
 # Dump lists to a file in the backup dir
 date -u +'App list backup at %Y-%m-%dT%H%M%SZ' > $BACKUP_PATH
