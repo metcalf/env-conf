@@ -207,8 +207,12 @@ prepend_to_path () {
     [ -d "$1" ] && export PATH="$1:$PATH"
 }
 
+source ~/.rbenvrc
+source ~/stripe/modelt-config/modelt-env.sh
+
 prepend_to_path /usr/local/bin
 prepend_to_path /usr/local/sbin
+prepend_to_path $HOME/code/env-conf/files/bin
 add_to_path ./node_modules/.bin
 add_to_path $HOME/code/go/bin
 
@@ -227,9 +231,6 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 # add password-vault bash completion
 [ -e ~/stripe/password-vault/bash_completion ] \
         && . ~/stripe/password-vault/bash_completion
-
-source ~/.rbenvrc
-source ~/stripe/modelt-config/modelt-env.sh
 
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"
