@@ -192,6 +192,17 @@ pry() {
     fi
 }
 
+stripe-pry() {
+  if [[ "$1" == p* ]] || [[ "$1" == -p* ]] || [[ "$1" == --p* ]]; then
+      PREFIX=""
+      ECHO='"\e[31m\e[1mWARNING PRODUCTION MACHINE\n`hostname`\n\e[0m"'
+  else
+      PREFIX="qa-"
+      ECHO='"\e[35m\e[1m`hostname`\n\e[0m"'
+  fi
+  ssh -t "$PREFIX"login1.nw "echo -e $ECHO && bash -ilc stripe-pry"
+}
+
 export PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
