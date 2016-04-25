@@ -148,6 +148,7 @@
 
 (with-eval-after-load 'flycheck
   (flycheck-add-mode 'javascript-eslint 'web-mode))
+(setq flycheck-ruby-rubocop-executable "~/.rbenv/shims/rubocop")
 
 (setq auto-mode-alist
       (append
