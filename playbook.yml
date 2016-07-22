@@ -4,6 +4,7 @@
     applications:
       - android-studio
       - adium
+      - docker
       - dropbox
       - dash
       - deluge
@@ -13,6 +14,7 @@
       - google-chrome
       - google-earth
       - heroku-toolbelt
+      - iterm2
       - keepingyouawake
       - libreoffice
       - pacifist
@@ -91,7 +93,7 @@
       octaverc: .octaverc
       Fonts: Library/Fonts
       com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
-      gitignore: .gitignore
+      gitignore: .config/git/ignore
       Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
     node_modules:
       - eslint

@@ -23,6 +23,7 @@
       ruby-use-smie t)
 (setq-default indent-tabs-mode nil)
 (setq-default truncate-lines t)
+(setq-default spotlight-min-chars 3)
 (show-paren-mode 1)
 
 (global-auto-revert-mode t)
@@ -30,8 +31,17 @@
 (define-coding-system-alias 'ascii-8bit 'iso-latin-1)
 
 (custom-set-variables
-  '(auto-save-file-name-transforms '((".*" "~/.emacs_autosaves/\\1" t)))
-  '(backup-directory-alist '((".*" . "~/.emacs_backups/"))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-file-name-transforms (quote ((".*" "~/.emacs_autosaves/\\1" t))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+ '(frame-background-mode (quote dark))
+ '(inhibit-startup-screen t)
+ '(kill-whole-line t)
+ '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
+ '(x-select-enable-clipboard t))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -53,7 +63,7 @@
 (defvar prelude-packages
   '(coffee-mode clojure-mode paredit scala-mode2 web-mode flycheck
                 auto-complete exec-path-from-shell puppet-mode markdown-mode
-                go-mode)
+                go-mode flx-ido ivy spotlight)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -88,6 +98,18 @@
 ;        (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
 ;    (warn "Please download ensime to %s" ensime-path)))
 
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+(setq ffip-prefer-ido-mode t)
+
+(ivy-mode 1)
+
 (require 'rbenv)
 (global-rbenv-mode)
 
@@ -110,9 +132,6 @@
 
 (require 'column-marker)
 (add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 80)))
-
-(require 'textmate)
-(textmate-mode)
 
 (require 'less-css-mode)
 ;(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))
@@ -185,29 +204,6 @@
 
 (add-hook 'before-save-hook 'mode-aware-delete-trailing-whitespace)
 
-(defun strip-trailing-newlines (str)
-  (replace-regexp-in-string "\n$" "" str))
-
-(defun sh-cwd (working-directory command)
-  (shell-command-to-string (concat "cd " working-directory " && " command)))
-
-(defun am-git-open (repo-path)
-  (interactive (list (ido-read-directory-name "GIT Repo: ")))
-  (let* ((repo-base-path (file-name-as-directory
-			  (strip-trailing-newlines
-			   (sh-cwd repo-path "git rev-parse --show-toplevel"))))
-	 (changed-files (mapcar (lambda (file) (concat repo-base-path (strip-trailing-newlines file)))
-				(split-string
-				 (strip-trailing-newlines
-				  (sh-cwd repo-base-path "git diff $(git merge-base master HEAD) HEAD --name-only"))
-				 "[\r\n]+"))))
-    (progn
-      (dolist (path (cdr changed-files))
-	(find-file-noselect path))
-      (unless (string= repo-base-path (car changed-files))
-	(find-file (car changed-files))))))
-
-
 (defun kill-all-buffers ()
   "Kill all other buffers."
   (interactive)
@@ -227,37 +223,19 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(kill-whole-line t)
- '(x-select-enable-clipboard t)
- '(frame-background-mode (quote dark))
- '(inhibit-startup-screen t)
- '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
-)
+(defun spotlight-project (arg &optional initial-input)
+  (interactive "P")
+  (let ((spotlight-old-base-dir spotlight-default-base-dir))
+    (setq spotlight-default-base-dir (or (ffip-project-root) spotlight-default-base-dir))
+    (spotlight arg initial-input)
+    (setq spotlight-default-base-dir spotlight-old-base-dir)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil
-			 :stipple nil
-			 :background "#070606"
-			 :foreground "#eadbcd"
-			 :inverse-video nil
-			 :box nil
-			 :strike-through nil
-			 :overline nil
-			 :underline nil
-			 :slant normal
-			 :weight normal
-			 :height 140
-			 :width normal
-			 :family "Source Code Pro"))))
+ '(default ((t (:inherit nil :stipple nil :background "#070606" :foreground "#eadbcd" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :family "Source Code Pro"))))
  '(cursor ((t (:background "#ff0099"))))
  '(font-lock-comment-face ((t (:foreground "#5f7189"))))
  '(font-lock-function-name-face ((((class color) (min-colors 88) (background dark)) (:foreground "#ff9966"))))
@@ -272,6 +250,8 @@
 (global-set-key (kbd "C-S-c") 'kill-ring-save)
 (global-set-key (kbd "C-S-v") 'yank)
 (global-set-key (kbd "C-q") 'query-replace)
+(global-set-key (kbd "C-S-s") 'spotlight-project)
+(global-set-key (kbd "C-f") 'find-file-in-project)
 (put 'downcase-region 'disabled nil)
 
 (load "server")

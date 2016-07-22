@@ -1,5 +1,5 @@
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.config/git/ignore
 	pager = less -F
 
 [user]
@@ -17,6 +17,11 @@
 	ll = log --graph --decorate=short
 	m = merge
 	g = grep --break --heading --line-number
+	rbom = !git fetch origin master && git rebase origin/master
+	cobm = !git fetch origin master && git checkout -b "$1" && git reset --keep origin/master && git push --set-upstream origin "$1" && :
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 
 [color]
 	ui = auto
