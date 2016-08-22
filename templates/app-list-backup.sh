@@ -3,7 +3,7 @@ set -eux
 
 BACKUP_NAME=`date -u +'app-list-backup.%Y-%m-%dT%H%M%SZ.txt'`
 BACKUP_PATH="{{ backup_dir }}/$BACKUP_NAME"
-API_UPLOAD_URL="https://api-content.dropbox.com/1/files_put"
+API_UPLOAD_URL="https://api-content.dropbox.com/2/files/upload"
 export HOME="{{ home_dir }}"
 
 # Dump lists to a file in the backup dir
@@ -22,6 +22,12 @@ echo -e "\n=== brew info ===" >> $BACKUP_PATH
 /usr/local/bin/brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
 
 # Upload to Dropbox
-/usr/bin/curl -s -i --globoff --upload-file "$BACKUP_PATH" \
-          -H "Authorization:Bearer {{ dropbox_access_token }}" \
-          "$API_UPLOAD_URL/sandbox/$BACKUP_NAME"
+/usr/bin/curl "$API_UPLOAD_URL" \
+    --upload-file "$BACKUP_PATH" \
+    --globoff \
+    --include \
+    --silent \
+    --request POST \
+    --header "Authorization: Bearer {{ dropbox_access_token }}" \
+    --header "Dropbox-API-Arg: {\"path\": \"/$BACKUP_NAME\"}" \
+    --header "Content-Type: application/octet-stream"
