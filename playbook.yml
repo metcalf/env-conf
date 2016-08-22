@@ -67,6 +67,7 @@
       openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
       p7zip:
       postgresql:
+      pstree:
       python:
       rsync:
       sbt:
