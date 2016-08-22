@@ -23,7 +23,6 @@
       ruby-use-smie t)
 (setq-default indent-tabs-mode nil)
 (setq-default truncate-lines t)
-(setq-default spotlight-min-chars 3)
 (show-paren-mode 1)
 
 (global-auto-revert-mode t)
@@ -63,7 +62,7 @@
 (defvar prelude-packages
   '(coffee-mode clojure-mode paredit scala-mode2 web-mode flycheck
                 auto-complete exec-path-from-shell puppet-mode markdown-mode
-                go-mode flx-ido ivy spotlight)
+                go-mode flx counsel)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
@@ -98,15 +97,6 @@
 ;        (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))
 ;    (warn "Please download ensime to %s" ensime-path)))
 
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-
-(setq ffip-prefer-ido-mode t)
 
 (ivy-mode 1)
 
@@ -223,13 +213,6 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(defun spotlight-project (arg &optional initial-input)
-  (interactive "P")
-  (let ((spotlight-old-base-dir spotlight-default-base-dir))
-    (setq spotlight-default-base-dir (or (ffip-project-root) spotlight-default-base-dir))
-    (spotlight arg initial-input)
-    (setq spotlight-default-base-dir spotlight-old-base-dir)))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -250,8 +233,10 @@
 (global-set-key (kbd "C-S-c") 'kill-ring-save)
 (global-set-key (kbd "C-S-v") 'yank)
 (global-set-key (kbd "C-q") 'query-replace)
-(global-set-key (kbd "C-S-s") 'spotlight-project)
-(global-set-key (kbd "C-f") 'find-file-in-project)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-S-s") 'counsel-ag)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-f") 'find-file-in-project-by-selected)
 (put 'downcase-region 'disabled nil)
 
 (load "server")
