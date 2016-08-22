@@ -2,26 +2,26 @@
 
 - name: Create directories
   file: path="{{ home_dir }}/{{ item }}" state=directory
-  with_items: directories
+  with_items: '{{directories}}'
 
 - name: Remove ACLs that prevent moving the fonts folder
   command: /bin/chmod -f -N "{{ home_dir }}/Library/Fonts"
 
 - name: Stat homefiles
   stat: follow=no path="{{ home_dir }}/{{ item.value }}"
-  with_dict: homefiles
+  with_dict: '{{homefiles}}'
   register: homefiles_stat
 
 - name: Backup unlinked home directory files
   command: mv "{{ item.stat.path }}" "{{ backup_dir }}/{{ item.item.key }}.{{ ansible_date_time.epoch }}"
   when: item.stat.exists and not item.stat.islnk
-  with_items: homefiles_stat.results
+  with_items: '{{homefiles_stat.results}}'
 
 - name: Link home directory files
   file: state=link path="{{ home_dir }}/{{ item.value }}" src="{{ inventory_dir }}/files/{{ item.key }}"
-  with_dict: homefiles
+  with_dict: '{{homefiles}}'
 
 - name: Re-read preference plist files
   shell: defaults read {{ home_dir }}/{{ item.value }}
-  with_dict: homefiles
+  with_dict: '{{homefiles}}'
   when: "item.value|search('Preferences/.*\\.plist$')"

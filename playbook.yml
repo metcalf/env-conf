@@ -110,7 +110,7 @@
       - github.com/nsf/gocode
       - github.com/dougm/goflymake
       - golang.org/x/tools/cmd/goimports
-      - code.google.com/p/rog-go/exp/cmd/godef
+      - github.com/rogpeppe/godef
       - github.com/maruel/panicparse/cmd/pp
     disable_hotkeys:
          60: "32, 49, 1048576"

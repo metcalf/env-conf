@@ -9,14 +9,14 @@
 
 - name: Add homebrew taps
   shell: brew tap {{ item }}
-  with_items: taps
+  with_items: '{{taps}}'
 
 - name: Update homebrew
   shell: brew update
 
 - name: Install Homebrew libraries
   homebrew: name={{ item.key }} state=present install_options={{ item.value }}
-  with_dict: brews
+  with_dict: '{{brews}}'
 
 - name: Check for installed casks
   shell: brew cask list
@@ -25,7 +25,7 @@
 
 - name: Install apps with brew-cask
   shell: brew cask install {{ item }}
-  with_items: applications
+  with_items: '{{applications}}'
   when: "item not in installed_cask_applications.stdout_lines"
 
 - name: Get emacs prefix
