@@ -1,0 +1,5 @@
+#!/bin/bash
+esc=$(echo -n $'\001')
+files=$(git grep -l "$1")
+echo $files
+sed -i -e "s$esc$1$esc$2$esc" $files
