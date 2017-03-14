@@ -17,8 +17,10 @@
 	ll = log --graph --decorate=short
 	m = merge
 	g = grep --break --heading --line-number
-	rbom = !git fetch origin master && git rebase origin/master
-	cobm = !git fetch origin master && git checkout -b "$1" && git reset --keep origin/master && git push --set-upstream origin "$1" && :
+	rbom = "!f() { BRANCH=$(git master-passing-tests-name); git fetch origin \"$BRANCH\" && git rebase origin/\"$BRANCH\" -X ignore-space-change \"$@\"; }; f"
+	cobm = "!f() { BRANCH=$(git master-passing-tests-name); git fetch origin \"$BRANCH\" && git checkout -b \"$1\" && git reset --keep origin/\"$BRANCH\" && :; }; f"
+	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
+	master-passing-tests-name = !git remote get-url origin 2>&1 | grep -q stripe-internal && echo "master-passing-tests" || echo "master"
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/

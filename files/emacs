@@ -3,6 +3,8 @@
       line-number-mode t
       column-number-mode t
       js-indent-level 2
+      js2-basic-offset 2
+      sgml-basic-offset 2
       web-mode-code-indent-offset 2
       scroll-preserve-screen-position t
       c-basic-offset 4
@@ -40,6 +42,10 @@
  '(inhibit-startup-screen t)
  '(kill-whole-line t)
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
+ '(safe-local-variable-values
+   (quote
+    ((ffip-prune-patterns "*/.git/*" "*/node_modules/*" "*/prof/*")
+     (ffip-find-options . "-not -size +64k'"))))
  '(x-select-enable-clipboard t))
 
 (defalias 'yes-or-no-p 'y-or-n-p)

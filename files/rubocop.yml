@@ -15,9 +15,6 @@ SpaceAroundBraces:
 SpaceInsideHashLiteralBraces:
   Enabled: false
 
-TrailingComma:
-  Enabled: false
-
 HashSyntax:
   Enabled: false
 

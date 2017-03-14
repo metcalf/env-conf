@@ -16,10 +16,10 @@ echo -e "\n=== {{ home_dir }}/Applications ===" >> $BACKUP_PATH
 ls "{{ home_dir }}/Applications/" >> $BACKUP_PATH
 
 echo -e "\n=== brew list ===" >> $BACKUP_PATH
-/usr/local/bin/brew list >> $BACKUP_PATH
+sudo -u "{{user}}" /usr/local/bin/brew list >> $BACKUP_PATH
 
 echo -e "\n=== brew info ===" >> $BACKUP_PATH
-/usr/local/bin/brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
+sudo -u "{{user}}" /usr/local/bin/brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
 
 # Upload to Dropbox
 /usr/bin/curl "$API_UPLOAD_URL" \

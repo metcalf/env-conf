@@ -238,7 +238,7 @@ export GOPATH=$HOME/code/go
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source ~/.rbenvrc
-source ~/stripe/modelt-config/modelt-env.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 # add password-vault bash completion
 [ -e ~/stripe/password-vault/bash_completion ] \

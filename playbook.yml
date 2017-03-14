@@ -87,7 +87,7 @@
       coffeelint-config.json: .coffeelint.json
       emacs: .emacs
       emacs.d: .emacs.d
-      gitconfig: .gitconfig
+      gitconfig: .config/git/config
       inputrc: .inputrc
       plugins.sbt: .sbt/0.13/plugins/plugins.sbt
       rubocop.yml: .rubocop.yml
@@ -96,6 +96,7 @@
       com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
       gitignore: .config/git/ignore
       Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
+      pep8: .config/pep8
     node_modules:
       - eslint
       - eslint-plugin-react
@@ -107,6 +108,7 @@
       - pep8
       - pyflakes
       - pylint
+      - virtualenvwrapper
     go_packages:
       - github.com/nsf/gocode
       - github.com/dougm/goflymake
@@ -124,6 +126,7 @@
          33: "65535, 125, 262144"
          34: "65535, 126, 393216"
          35: "65535, 125, 393216"
+    user: "{{ lookup('env','USER') }}"
     home_dir: "{{ lookup('env','HOME') }}"
     gopath: "{{ home_dir }}/code/go"
     account_picture: sugar-glider.png
