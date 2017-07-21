@@ -127,7 +127,7 @@
 (global-whitespace-mode)
 
 (require 'column-marker)
-(add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 80)))
+(add-hook 'after-change-major-mode-hook (lambda () (interactive) (column-marker-1 100)))
 
 (require 'less-css-mode)
 ;(setq less-css-lessc-command (expand-file-name "~/node_modules/less/bin/lessc"))

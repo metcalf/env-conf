@@ -9,9 +9,6 @@ LineLength:
 SpaceAroundOperators:
   Enabled: false
 
-SpaceAroundBraces:
-  Enabled: false
-
 SpaceInsideHashLiteralBraces:
   Enabled: false
 

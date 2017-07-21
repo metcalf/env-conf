@@ -4,10 +4,12 @@
     applications:
       - android-studio
       - adium
+      - alfred
       - docker
       - dropbox
-      - dash
+      - dash3
       - deluge
+      - emacs
       - evernote
       - firefox
       - gimp
@@ -44,7 +46,6 @@
       coreutils:
       curl:
       dfu-util:
-      emacs: with-cocoa
       fasd:
       gcc:
       geoip: with-geoipupdate
@@ -65,6 +66,7 @@
       node:
       octave:
       openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
+      parallel:
       p7zip:
       postgresql:
       pstree:
