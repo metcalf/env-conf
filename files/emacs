@@ -19,12 +19,17 @@
       require-final-newline t
       use-dialog-box nil
       ruby-align-chained-calls nil
-      ruby-align-to-stmt-keywords nil
+      ruby-align-to-stmt-keywords t
       ruby-deep-indent-paren nil
       ruby-deep-indent-paren-style nil
-      ruby-use-smie t)
-(setq-default indent-tabs-mode nil)
-(setq-default truncate-lines t)
+      ruby-deep-arglist nil
+      ruby-use-smie t
+      vc-handled-backends nil ; vc-mode locks git during rebases
+      )
+(setq-default indent-tabs-mode nil
+              truncate-lines t
+              fill-column 90
+              )
 (show-paren-mode 1)
 
 (global-auto-revert-mode t)
@@ -164,6 +169,17 @@
 (with-eval-after-load 'flycheck
   (flycheck-add-mode 'javascript-eslint 'web-mode))
 (setq flycheck-ruby-rubocop-executable "~/.rbenv/shims/rubocop")
+
+(defun use-pay-server-rubocop ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "scripts/bin/rubocop"))
+         (rubocop (and root
+                      (expand-file-name "scripts/bin/rubocop"
+                                        root))))
+    (when (and rubocop (file-executable-p rubocop))
+      (setq-local flycheck-ruby-rubocop-executable rubocop))))
+(add-hook 'flycheck-mode-hook #'use-pay-server-rubocop)
 
 (setq auto-mode-alist
       (append

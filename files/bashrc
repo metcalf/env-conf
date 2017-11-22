@@ -65,6 +65,15 @@ xterm*|rxvt*)
     ;;
 esac
 
+# Detect and load bash-completion
+if [ -f /usr/local/etc/bash_completion ]; then
+  source /usr/local/etc/bash_completion
+  HAS_BASH_COMPLETION=1
+elif [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion
+  HAS_BASH_COMPLETION=1
+fi
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -85,25 +94,19 @@ alias ..='cd ..'
 alias russian_roulette="[[ $RANDOM -gt 20000 ]] && sudo rm -rf /"
 alias edit_each='while read -r line; do $EDITOR "$line"; done'
 alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
 alias g='git'
-
-# Detect and load bash-completion
-if [ -f /usr/local/etc/bash_completion ]; then
-  source /usr/local/etc/bash_completion
-  HAS_BASH_COMPLETION=1
-elif [ -f /etc/bash_completion ]; then
-  source /etc/bash_completion
-  HAS_BASH_COMPLETION=1
-fi
-
-function bash_complete {
-  [ "$HAS_BASH_COMPLETION" = 1 ] && complete "$@"
-}
+complete -o bashdefault -o default -o nospace -F _git g
 
 function cdl() {
     builtin cd "$1"
     ls -lastp | grep -v \\.pyc$ | grep -v "\\./$" | grep -v " \\." | head -n15
     echo "..."
+}
+
+
+function bash_complete {
+  [ "$HAS_BASH_COMPLETION" = 1 ] && complete "$@"
 }
 
 # Host completion for mosh
@@ -115,66 +118,8 @@ if which -s mosh; then
   shopt -u hostcomplete && bash_complete -F _mosh mosh
 fi
 
-# FASD caching and configuration
-fasd_cache="$HOME/.fasd-init-bash"
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
-
-# Open at github
-gh() {
-  local url
-
-  url=$(git config --get remote.origin.url)
-  if [ $? != 0 ]; then
-    exit $?
-  fi
-  if [ "${url:0:15}" == "git@github.com:" ]; then
-    url=${url:15}
-  elif [ "${url:0:19}" == "https://github.com/" ]; then
-    url=${url:19}
-  else
-    echo "What kind of remote URL is $url anyways?"
-    exit 1
-  fi
-  url="https://github.com/${url%.git}"
-  open "$url"
-}
-
-# By Evan Broder:
-# I got tired of bundle exec'ing things, so the following will automatically prefix
-# any gem-installed command with "bundle exec" if you're in a directory with a Gemfile:
-
-_find_gemfile() {
-    local dir
-    dir="$(pwd)"
-    while [ "$dir" != "/" ]; do
-        if [ -e "${dir}/Gemfile" ]; then
-            echo "${dir}/Gemfile"
-            return 0
-        fi
-        dir="$(dirname "$dir")"
-    done
-
-    return 1
-}
-
-_maybe_bundleify() {
-    if _find_gemfile >/dev/null; then
-        command bundle exec "$@"
-    else
-        command "$@"
-    fi
-}
-
-for cmd in $(ls ~/.rbenv/shims); do
-    case $cmd in
-        gem|irb|bundle) continue ;;
-        *) eval "$cmd() { _maybe_bundleify $cmd \"\$@\"; }" ;;
-    esac
-done
+# FASD is fancier but was slowing down every new prompt
+. /usr/local/etc/profile.d/z.sh
 
 # By Evan Broder:
 # You'll probably also want the following alias for pry so that you
@@ -238,7 +183,8 @@ export GOPATH=$HOME/code/go
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
 source ~/.rbenvrc
-source /usr/local/bin/virtualenvwrapper.sh
+# This takes a few hundred milliseconds and I don't use virtualenv enough to justify it today
+# source /usr/local/bin/virtualenvwrapper.sh
 
 # add password-vault bash completion
 [ -e ~/stripe/password-vault/bash_completion ] \
@@ -247,3 +193,9 @@ source /usr/local/bin/virtualenvwrapper.sh
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"
 fi
+# BEGIN STRIPE NODE CONFIG
+#      To undo the following behavior, comment it out, dont delete it;
+#      'pay-server/scripts/frontend/install_node_modules' will just add it again.
+#      Ask in #frontend-infra or #iteng if you have questions.
+export PATH="node_modules/.bin:$PATH"
+# END STRIPE NODE CONFIG
