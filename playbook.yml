@@ -17,16 +17,13 @@
       - google-chrome
       - google-backup-and-sync
       - google-earth
-      - heroku-toolbelt
       - iterm2
-      - keepingyouawake
       - libreoffice
       - pacifist
       - pencil
       - slack
       - skype
       - spotify
-      - textexpander
       - utc-menu-clock
       - virtualbox
       - vlc
@@ -39,8 +36,6 @@
       - homebrew/services
       - caskroom/versions
     brews:
-      android-sdk:
-      ant:
       awscli:
       bash:
       bash-completion:
@@ -61,7 +56,6 @@
       mercurial:
       minicom:
       mobile-shell:
-      mosquitto:
       netcat:
       nmap:
       node:
@@ -88,18 +82,15 @@
     homefiles:
       bash_profile: .bash_profile
       bashrc: .bashrc
-      coffeelint-config.json: .coffeelint.json
       emacs: .emacs
       emacs.d: .emacs.d
       gitconfig: .config/git/config
       inputrc: .inputrc
       plugins.sbt: .sbt/0.13/plugins/plugins.sbt
       rubocop.yml: .rubocop.yml
-      octaverc: .octaverc
       Fonts: Library/Fonts
       com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
       gitignore: .config/git/ignore
-      Evoluent-VerticalMouseSettings.xml: "Library/Application Support/Evoluent/VerticalMouseSettings.xml"
       pep8: .config/pep8
     node_modules:
       - eslint
