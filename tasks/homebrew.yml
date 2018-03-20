@@ -27,10 +27,3 @@
   shell: brew cask install {{ item }}
   with_items: '{{applications}}'
   when: "item not in installed_cask_applications.stdout_lines"
-
-- name: Get emacs prefix
-  command: brew --prefix emacs
-  register: brew_emacs_prefix
-
-- name: Link emacs app
-  file: state=link path={{ home_dir }}/Applications/Emacs.app src={{ brew_emacs_prefix.stdout }}/Emacs.app

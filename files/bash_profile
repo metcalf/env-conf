@@ -1,2 +1,2 @@
-. "$HOME/.profile"
+[[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
 . "$HOME/.bashrc"

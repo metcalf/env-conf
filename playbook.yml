@@ -3,7 +3,6 @@
   vars:
     applications:
       - android-studio
-      - adium
       - alfred
       - docker
       # No-go at Stripe anymore
@@ -14,14 +13,14 @@
       - evernote
       - firefox
       - gimp
-      - google-chrome
+      # - google-chrome Stripe orchestrates this
       - google-backup-and-sync
-      - google-earth
+      - google-earth-pro
       - iterm2
       - libreoffice
       - pacifist
       - pencil
-      - slack
+      # - slack Stripe orchestrates this
       - skype
       - spotify
       - utc-menu-clock
@@ -45,10 +44,10 @@
       dfu-util:
       gcc:
       geoip: with-geoipupdate
-      git: with-pcre
-      gnu-sed: with-default-names
-      gnu-tar: with-default-names
-      grep: with-default-names
+      git: with-pcre2
+      gnu-sed: --with-default-names
+      gnu-tar: --with-default-names
+      grep: --with-default-names
       hilite:
       hub:
       imagemagick:
@@ -60,7 +59,8 @@
       nmap:
       node:
       octave:
-      openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
+      # Keychain support flags were removed at some point so prefer system SSH for now
+      # openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
       parallel:
       p7zip:
       postgresql:
@@ -79,6 +79,7 @@
       - .emacs_backups
       - .ssh/sockets
       - code
+      - .config/git
     homefiles:
       bash_profile: .bash_profile
       bashrc: .bashrc
@@ -86,12 +87,11 @@
       emacs.d: .emacs.d
       gitconfig: .config/git/config
       inputrc: .inputrc
-      plugins.sbt: .sbt/0.13/plugins/plugins.sbt
       rubocop.yml: .rubocop.yml
       Fonts: Library/Fonts
-      com.apple.Terminal.plist: Library/Preferences/com.apple.Terminal.plist
       gitignore: .config/git/ignore
       pep8: .config/pep8
+      vscode-settings.json: Library/Application Support/Code/User/settings.json
     node_modules:
       - eslint
       - eslint-plugin-react
@@ -129,9 +129,9 @@
   vars_files:
     - vars.yml
   tasks:
-    - include: tasks/files.yml
-    - include: tasks/preferences.yml
-    - include: tasks/homebrew.yml
-    - include: tasks/python.yml
-    - include: tasks/go.yml
-    - include: tasks/node.yml
+    - import_tasks: tasks/files.yml
+    - import_tasks: tasks/preferences.yml
+    - import_tasks: tasks/homebrew.yml
+    - import_tasks: tasks/python.yml
+    - import_tasks: tasks/go.yml
+    - import_tasks: tasks/node.yml

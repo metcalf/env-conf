@@ -1,0 +1,10 @@
+{
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.codeLens.scopes": [
+        "document"
+    ],
+    "gitlens.statusBar.enabled": false,
+    "gitlens.hovers.currentLine.enabled": false,
+    "editor.minimap.enabled": false
+}

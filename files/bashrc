@@ -156,7 +156,7 @@ stripe-pry() {
 export PATH
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export EDITOR='emacsclient -c -a ""'
+export EDITOR='code --wait'
 export VBOX_USER_HOME=~/.VirtualBox
 
 export JAVA_HOME=$(/usr/libexec/java_home)
@@ -178,6 +178,7 @@ add_to_path $HOME/code/go/bin
 add_to_path /usr/local/hadoop/bin
 add_to_path ~/stripe/hdfsync/bin
 
+add_to_path ~/stripe/henson/bin
 add_to_path ~/stripe/password-vault/bin
 add_to_path ~/stripe/space-commander/bin
 
