@@ -2,40 +2,40 @@
 - hosts: all
   vars:
     applications:
-      - android-studio
-      - alfred
+      # - android-studio
+      # - alfred
       - docker
       # No-go at Stripe anymore
       # - dropbox
-      - dash3
-      - deluge
-      - emacs
+      - dash
+      # - deluge
+      # - emacs
       - evernote
       - firefox
       - gimp
       # - google-chrome Stripe orchestrates this
-      - google-backup-and-sync
+      # - google-backup-and-sync
       - google-earth-pro
-      - iterm2
+      # - iterm2
       - libreoffice
-      - pacifist
-      - pencil
+      # - pacifist
+      # - pencil
       # - slack Stripe orchestrates this
       - skype
       - spotify
       - utc-menu-clock
-      - virtualbox
-      - vlc
-      - wireshark
-      - xquartz
+      # - virtualbox
+      # - vlc
+      # - wireshark
+      # - xquartz
     application_dir: /Applications
     taps:
-      - homebrew/dupes
-      - homebrew/science
-      - homebrew/services
-      - caskroom/versions
+      # - homebrew/dupes
+      # - homebrew/science
+      # - homebrew/services
+      # - caskroom/versions
     brews:
-      awscli:
+      # awscli:
       bash:
       bash-completion:
       cloc:
@@ -43,11 +43,11 @@
       curl:
       dfu-util:
       gcc:
-      geoip: with-geoipupdate
+      geoip:
       git: with-pcre2
-      gnu-sed: --with-default-names
-      gnu-tar: --with-default-names
-      grep: --with-default-names
+      gnu-sed:
+      gnu-tar:
+      grep:
       hilite:
       hub:
       imagemagick:
@@ -58,7 +58,8 @@
       netcat:
       nmap:
       node:
-      octave:
+      nodenv:
+      # octave:
       # Keychain support flags were removed at some point so prefer system SSH for now
       # openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
       parallel:
@@ -75,16 +76,12 @@
       wget:
       z:
     directories:
-      - .emacs_autosaves
-      - .emacs_backups
       - .ssh/sockets
       - code
       - .config/git
     homefiles:
       bash_profile: .bash_profile
       bashrc: .bashrc
-      emacs: .emacs
-      emacs.d: .emacs.d
       gitconfig: .config/git/config
       inputrc: .inputrc
       rubocop.yml: .rubocop.yml
@@ -92,6 +89,7 @@
       gitignore: .config/git/ignore
       pep8: .config/pep8
       vscode-settings.json: Library/Application Support/Code/User/settings.json
+      vscode-keybindings.json: Library/Application Support/Code/User/keybindings.json
     node_modules:
       - eslint
       - eslint-plugin-react

@@ -4,8 +4,14 @@
   file: path="{{ home_dir }}/{{ item }}" state=directory
   with_items: '{{directories}}'
 
+- name: check if Fonts directory exists
+  stat: 
+    path: '{{ home_dir }}/Library/Fonts'
+  register: fonts_check
+
 - name: Remove ACLs that prevent moving the fonts folder
   command: /bin/chmod -f -N "{{ home_dir }}/Library/Fonts"
+  when: fonts_check.stat.exists == true
 
 - name: Stat homefiles
   stat: follow=no path="{{ home_dir }}/{{ item.value }}"

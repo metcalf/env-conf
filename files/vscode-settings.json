@@ -6,5 +6,23 @@
     ],
     "gitlens.statusBar.enabled": false,
     "gitlens.hovers.currentLine.enabled": false,
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "rewrap.wrappingColumn": 90,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "gitlens.historyExplorer.enabled": true,
+    "gitlens.gitExplorer.files.layout": "list",
+    "gitlens.views.repositories.files.layout": "list",
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true,
+    "window.zoomLevel": 0,
+    "diffEditor.renderSideBySide": false,
 }

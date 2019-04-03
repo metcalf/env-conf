@@ -184,6 +184,12 @@ add_to_path ~/stripe/space-commander/bin
 
 add_to_path ~/code/android/sdk/platform-tools
 
+add_to_path ~/Library/Python/3.6/bin/
+
+prepend_to_path /usr/local/opt/gnu-sed/libexec/gnubin
+prepend_to_path /usr/local/opt/gnu-tar/libexec/gnubin
+prepend_to_path /usr/local/opt/grep/libexec/gnubin
+
 export GOPATH=$HOME/code/go
 export ANDROID_HOME=/usr/local/opt/android-sdk
 
@@ -204,3 +210,9 @@ fi
 #      Ask in #frontend-infra or #iteng if you have questions.
 export PATH="node_modules/.bin:$PATH"
 # END STRIPE NODE CONFIG
+complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete sc
+complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete _sc
+
+launchctl setenv LC_ALL $LANG
+
+source sc-aliases
