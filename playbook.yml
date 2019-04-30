@@ -41,6 +41,7 @@
       cloc:
       coreutils:
       curl:
+      dep: # golang dep tool
       dfu-util:
       gcc:
       geoip:
@@ -64,6 +65,7 @@
       # openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
       parallel:
       p7zip:
+      pipenv:
       postgresql:
       pstree:
       python:

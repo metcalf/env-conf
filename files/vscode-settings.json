@@ -25,4 +25,8 @@
     "gitlens.views.lineHistory.enabled": true,
     "window.zoomLevel": 0,
     "diffEditor.renderSideBySide": false,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "http.proxy": "http://127.0.0.1:8888",
 }

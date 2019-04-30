@@ -19,6 +19,7 @@
 	g = grep --break --heading --line-number
 	rbom = "!f() { git fetch origin master && git rebase origin/master -X ignore-space-change \"$@\"; }; f"
 	cobm = "!f() { git fetch origin master && git checkout -b \"$1\" && git reset --keep origin/master && :; }; f"
+	com = "!f() { [[ \"$(git rev-parse --abbrev-ref HEAD)\" = \"master\" ]] && git reset --hard origin/master || git branch --force master origin/master && git checkout master && :; }; f"
 	fixup = "!f() { TARGET=$(git rev-parse "$1"); git commit --fixup=$TARGET ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 
 [url "git@github.com:"]

@@ -9,7 +9,7 @@
     path: '{{ home_dir }}/Library/Fonts'
   register: fonts_check
 
-- name: Remove ACLs that prevent moving the fonts folder
+- name: Remove ACL that prevent moving the fonts folder
   command: /bin/chmod -f -N "{{ home_dir }}/Library/Fonts"
   when: fonts_check.stat.exists == true
 
