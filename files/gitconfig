@@ -46,7 +46,7 @@
 	keepBackup = false
 
 [push]
-	default = simple
+	default = current
 
 [branch]
 	autosetupmerge = true

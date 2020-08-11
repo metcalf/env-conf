@@ -125,7 +125,7 @@
     home_dir: "{{ lookup('env','HOME') }}"
     gopath: "{{ home_dir }}/code/go"
     account_picture: sugar-glider.png
-    backup_dir: "{{ inventory_dir }}/backups"
+    backup_dir: "/Users/andrew/Drive/Apps/AppListBackup/"
   vars_files:
     - vars.yml
   tasks:

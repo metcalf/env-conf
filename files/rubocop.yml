@@ -1,19 +1,13 @@
 # Put me in the home directory as .rubocop.yml to configure global rubocop
 
-MethodLength:
-  Max: 20
+Metrics/MethodLength:
+  Enabled: false
 
-LineLength:
+Layout/LineLength:
   Max: 100
 
-SpaceAroundOperators:
-  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
-SpaceInsideHashLiteralBraces:
+Style/WordArray:
   Enabled: false
-
-HashSyntax:
-  Enabled: false
-
-WordArray:
-    Enabled: false

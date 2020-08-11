@@ -22,12 +22,13 @@ echo -e "\n=== brew info ===" >> $BACKUP_PATH
 sudo -u "{{user}}" /usr/local/bin/brew info --json=v1 --installed | python -m json.tool >> $BACKUP_PATH
 
 # Upload to Dropbox
-/usr/bin/curl "$API_UPLOAD_URL" \
-    --upload-file "$BACKUP_PATH" \
-    --globoff \
-    --include \
-    --silent \
-    --request POST \
-    --header "Authorization: Bearer {{ dropbox_access_token }}" \
-    --header "Dropbox-API-Arg: {\"path\": \"/$BACKUP_NAME\"}" \
-    --header "Content-Type: application/octet-stream"
+# Disabled this approach because it triggers exfiltration alerting
+# /usr/bin/curl "$API_UPLOAD_URL" \
+#     --upload-file "$BACKUP_PATH" \
+#     --globoff \
+#     --include \
+#     --silent \
+#     --request POST \
+#     --header "Authorization: Bearer {{ dropbox_access_token }}" \
+#     --header "Dropbox-API-Arg: {\"path\": \"/$BACKUP_NAME\"}" \
+#     --header "Content-Type: application/octet-stream"

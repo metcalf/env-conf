@@ -214,5 +214,3 @@ complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete sc
 complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete _sc
 
 launchctl setenv LC_ALL $LANG
-
-source sc-aliases
