@@ -65,9 +65,11 @@ xterm*|rxvt*)
     ;;
 esac
 
+HOMEBREW_PREFIX=/opt/homebrew
+
 # Detect and load bash-completion
-if [ -f /usr/local/etc/bash_completion ]; then
-  source /usr/local/etc/bash_completion
+if [ -f $HOMEBREW_PREFIX/etc/bash_completion ]; then
+  source $HOMEBREW_PREFIX/etc/bash_completion
   HAS_BASH_COMPLETION=1
 elif [ -f /etc/bash_completion ]; then
   source /etc/bash_completion
@@ -75,8 +77,8 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 # We could use `brew --prefix git` to find the prefix to this path but it takes 500ms
-source /usr/local/opt/git/etc/bash_completion.d/git-completion.bash
-source /usr/local/opt/git/etc/bash_completion.d/git-prompt.sh
+source $HOMEBREW_PREFIX/opt/git/etc/bash_completion.d/git-completion.bash
+source $HOMEBREW_PREFIX/opt/git/etc/bash_completion.d/git-prompt.sh
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -97,7 +99,6 @@ alias l='ls -CF'
 alias ..='cd ..'
 alias russian_roulette="[[ $RANDOM -gt 20000 ]] && sudo rm -rf /"
 alias edit_each='while read -r line; do $EDITOR "$line"; done'
-alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
 alias g='git'
 complete -o bashdefault -o default -o nospace -F _git g
@@ -123,12 +124,11 @@ if which -s mosh; then
 fi
 
 # FASD is fancier but was slowing down every new prompt
-. /usr/local/etc/profile.d/z.sh
+. $HOMEBREW_PREFIX/etc/profile.d/z.sh
 
 # By Evan Broder:
 # You'll probably also want the following alias for pry so that you
 # can still run it even in repositories that don't include pry in their Gemfile:
-
 pry() {
     local gemfile
     if gemfile="$(_find_gemfile)"; then
@@ -140,17 +140,6 @@ pry() {
     else
         command pry "$@"
     fi
-}
-
-stripe-pry() {
-  if [[ "$1" == p* ]] || [[ "$1" == -p* ]] || [[ "$1" == --p* ]]; then
-      PREFIX=""
-      ECHO='"\e[31m\e[1mWARNING PRODUCTION MACHINE\n`hostname`\n\e[0m"'
-  else
-      PREFIX="qa-"
-      ECHO='"\e[35m\e[1m`hostname`\n\e[0m"'
-  fi
-  ssh -t "$PREFIX"login1.nw "echo -e $ECHO && bash -ilc stripe-pry"
 }
 
 export PATH
@@ -168,49 +157,22 @@ prepend_to_path () {
     [ -d "$1" ] && export PATH="$1:$PATH"
 }
 
-
-prepend_to_path /usr/local/bin
-prepend_to_path /usr/local/sbin
+prepend_to_path $HOMEBREW_PREFIX/bin
+prepend_to_path $HOMEBREW_PREFIX/sbin
 prepend_to_path $HOME/code/env-conf/files/bin
 add_to_path ./node_modules/.bin
 add_to_path $HOME/code/go/bin
 
-add_to_path /usr/local/hadoop/bin
-add_to_path ~/stripe/hdfsync/bin
-
-add_to_path ~/stripe/henson/bin
-add_to_path ~/stripe/password-vault/bin
-add_to_path ~/stripe/space-commander/bin
-
-add_to_path ~/code/android/sdk/platform-tools
-
-add_to_path ~/Library/Python/3.6/bin/
-
-prepend_to_path /usr/local/opt/gnu-sed/libexec/gnubin
-prepend_to_path /usr/local/opt/gnu-tar/libexec/gnubin
-prepend_to_path /usr/local/opt/grep/libexec/gnubin
+prepend_to_path $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin
+prepend_to_path $HOMEBREW_PREFIX/opt/gnu-tar/libexec/gnubin
+prepend_to_path $HOMEBREW_PREFIX/opt/grep/libexec/gnubin
 
 export GOPATH=$HOME/code/go
-export ANDROID_HOME=/usr/local/opt/android-sdk
 
-source ~/.rbenvrc
-# This takes a few hundred milliseconds and I don't use virtualenv enough to justify it today
-# source /usr/local/bin/virtualenvwrapper.sh
-
-# add password-vault bash completion
-[ -e ~/stripe/password-vault/bash_completion ] \
-        && . ~/stripe/password-vault/bash_completion
+[ -e ~/.rbenvrc ] && source ~/.rbenvrc
 
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"
 fi
-# BEGIN STRIPE NODE CONFIG
-#      To undo the following behavior, comment it out, dont delete it;
-#      'pay-server/scripts/frontend/install_node_modules' will just add it again.
-#      Ask in #frontend-infra or #iteng if you have questions.
-export PATH="node_modules/.bin:$PATH"
-# END STRIPE NODE CONFIG
-complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete sc
-complete -C /Users/andrew/stripe/space-commander/bin/commands/sc-complete _sc
 
 launchctl setenv LC_ALL $LANG

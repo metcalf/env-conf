@@ -1,6 +1,2 @@
 [[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
 . "$HOME/.bashrc"
-. "$HOME/.stripe_profile"
-# Add Visual Studio Code (code)
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-if [ -e /Users/andrew/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/andrew/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

@@ -4,6 +4,7 @@
     brews:
       # Formulas
       bash:
+      bash-completion:
       cloc:
       coreutils:
       curl:
@@ -16,6 +17,7 @@
       grep:
       hilite:
       imagemagick:
+      java:
       jq:
       mercurial:
       minicom:
