@@ -1,48 +1,13 @@
 ---
 - hosts: all
   vars:
-    applications:
-      # - android-studio
-      # - alfred
-      - docker
-      # No-go at Stripe anymore
-      # - dropbox
-      - dash
-      # - deluge
-      # - emacs
-      - evernote
-      - firefox
-      - gimp
-      # - google-chrome Stripe orchestrates this
-      # - google-backup-and-sync
-      - google-earth-pro
-      # - iterm2
-      - libreoffice
-      # - pacifist
-      # - pencil
-      # - slack Stripe orchestrates this
-      - skype
-      - spotify
-      - utc-menu-clock
-      # - virtualbox
-      # - vlc
-      # - wireshark
-      # - xquartz
-    application_dir: /Applications
-    taps:
-      # - homebrew/dupes
-      # - homebrew/science
-      # - homebrew/services
-      # - caskroom/versions
     brews:
-      # awscli:
+      # Formulas
       bash:
-      bash-completion:
       cloc:
       coreutils:
       curl:
-      dep: # golang dep tool
-      dfu-util:
+      findutils:
       gcc:
       geoip:
       git: with-pcre2
@@ -50,46 +15,48 @@
       gnu-tar:
       grep:
       hilite:
-      hub:
       imagemagick:
-      maven:
+      jq:
       mercurial:
       minicom:
-      mobile-shell:
+      mosh:
       netcat:
       nmap:
-      node:
+      node-build:
       nodenv:
-      # octave:
-      # Keychain support flags were removed at some point so prefer system SSH for now
-      # openssh: with-keychain-support,with-gssapi-support,with-brewed-openssl
-      parallel:
       p7zip:
       pipenv:
-      postgresql:
       pstree:
       python:
+      rbenv:
+      ruby-build:
       rsync:
-      sbt:
-      scala:
       sqlite:
-      unrar:
+      tree:
       watch:
       wget:
       z:
+
+      # Casks
+      - google-earth-pro
+      - keepingyouawake
+      - notion
+      - steam
+      - spotify
+      - utc-menu-clock
+      - visual-studio-code
+      - zoom
+    taps: []
     directories:
       - .ssh/sockets
       - code
-      - .config/git
     homefiles:
+      config: .config
       bash_profile: .bash_profile
       bashrc: .bashrc
-      gitconfig: .config/git/config
       inputrc: .inputrc
       rubocop.yml: .rubocop.yml
       Fonts: Library/Fonts
-      gitignore: .config/git/ignore
-      pep8: .config/pep8
       vscode-settings.json: Library/Application Support/Code/User/settings.json
       vscode-keybindings.json: Library/Application Support/Code/User/keybindings.json
     node_modules:
@@ -104,12 +71,7 @@
       - pyflakes
       - pylint
       - virtualenvwrapper
-    go_packages:
-      - github.com/nsf/gocode
-      - github.com/dougm/goflymake
-      - golang.org/x/tools/cmd/goimports
-      - github.com/rogpeppe/godef
-      - github.com/maruel/panicparse/cmd/pp
+    go_packages: []
     disable_hotkeys:
          60: "32, 49, 1048576"
          61: "32, 49, 1572864"
@@ -126,12 +88,10 @@
     gopath: "{{ home_dir }}/code/go"
     account_picture: sugar-glider.png
     backup_dir: "/Users/andrew/Drive/Apps/AppListBackup/"
-  vars_files:
-    - vars.yml
   tasks:
     - import_tasks: tasks/files.yml
-    - import_tasks: tasks/preferences.yml
     - import_tasks: tasks/homebrew.yml
+    - import_tasks: tasks/preferences.yml
     - import_tasks: tasks/python.yml
     - import_tasks: tasks/go.yml
     - import_tasks: tasks/node.yml

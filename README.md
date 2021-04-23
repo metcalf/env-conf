@@ -1,5 +1,4 @@
 * Configure SSH keys with access to github
-* Copy `vars.yml.sample` to `vars.yml` and fill in variables.
 * Run:
 ```
 cd ~

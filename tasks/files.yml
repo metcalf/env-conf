@@ -5,7 +5,7 @@
   with_items: '{{directories}}'
 
 - name: check if Fonts directory exists
-  stat: 
+  stat:
     path: '{{ home_dir }}/Library/Fonts'
   register: fonts_check
 
@@ -30,4 +30,4 @@
 - name: Re-read preference plist files
   shell: defaults read {{ home_dir }}/{{ item.value }}
   with_dict: '{{homefiles}}'
-  when: "item.value|search('Preferences/.*\\.plist$')"
+  when: "item.value is search('Preferences/.*\\.plist$')"

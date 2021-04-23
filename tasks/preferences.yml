@@ -28,6 +28,9 @@
     - defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
     - defaults write com.apple.dock tilesize -int 28
     - defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+    # Menu bar
+    - defaults write com.apple.controlcenter.plist Bluetooth -int 18
+    - defaults write com.apple.controlcenter.plist Volume -int 18
 
 - name: Disable certain hotkeys
   command: defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add {{ item.key }} "{enabled = 0; value = { parameters = ({{ item.value }}); type = 'standard'; }; }"
@@ -46,29 +49,16 @@
     - etc
     - var
 
-- name: Get menu extras
-  command: "defaults read com.apple.systemuiserver menuExtras"
-  register: menu_extras
-
-- name: Add menu extras
-  command: 'defaults write com.apple.systemuiserver menuExtras -array-add "{{ item }}"'
-  when: "'{{ item }}' not in menu_extras.stdout"
-  with_items:
-     - "/System/Library/CoreServices/Menu Extras/Volume.menu"
-     - "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
-  register: menu_extras_result
-
 - name: Kick SystemUIServer
   command: "killall SystemUIServer"
-  when: menu_extras_result.changed
 
 - name: Periodically backup a list of apps
   template: src=templates/app-list-backup.sh dest=/private/etc/periodic/weekly/998.app-list-backup mode=0750 owner=root group=wheel
   become: yes
 
 - name: Allow homebrew bash shell
-  lineinfile: dest=/etc/shells line="/usr/local/bin/bash"
+  lineinfile: dest=/etc/shells line="/opt/homebrew/bin/bash"
   become: yes
 
 - name: Default to homebrew bash shell
-  command: chsh -s /usr/local/bin/bash
+  command: chsh -s /opt/homebrew/bin/bash

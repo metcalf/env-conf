@@ -1,11 +1,11 @@
 ---
-- name: Check Homebrew is installed
-  stat: path=/usr/local/bin/brew
-  register: brew_installed
+# - name: Check Homebrew is installed
+#   stat: path=/opt/homebrew/bin/bash
+#   register: brew_installed
 
-- name: Install Homebrew
-  shell: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-  when: brew_installed.stat.exists == false
+# - name: Install Homebrew
+#   shell: ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+#   when: brew_installed.stat.exists == false
 
 - name: Add homebrew taps
   shell: brew tap {{ item }}
@@ -17,13 +17,3 @@
 - name: Install Homebrew libraries
   homebrew: name={{ item.key }} state=present install_options={{ item.value }}
   with_dict: '{{brews}}'
-
-- name: Check for installed casks
-  shell: brew cask list
-  register: installed_cask_applications
-  ignore_errors: true
-
-- name: Install apps with brew-cask
-  shell: brew cask install {{ item }}
-  with_items: '{{applications}}'
-  when: "item not in installed_cask_applications.stdout_lines"
