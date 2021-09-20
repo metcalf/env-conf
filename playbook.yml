@@ -19,6 +19,7 @@
       imagemagick:
       java:
       jq:
+      libffi:
       mercurial:
       minicom:
       mosh:
@@ -61,6 +62,7 @@
       Fonts: Library/Fonts
       vscode-settings.json: Library/Application Support/Code/User/settings.json
       vscode-keybindings.json: Library/Application Support/Code/User/keybindings.json
+      clang-format: .clang-format
     node_modules:
       - eslint
       - eslint-plugin-react

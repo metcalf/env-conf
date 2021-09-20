@@ -28,4 +28,13 @@
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
+    "[cpp]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "[diff]": {
+        "files.trimFinalNewlines": false,
+        "files.trimTrailingWhitespace": false
+    },
+    "workbench.editor.untitled.hint": "hidden",
 }

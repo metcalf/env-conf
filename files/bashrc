@@ -101,7 +101,7 @@ alias russian_roulette="[[ $RANDOM -gt 20000 ]] && sudo rm -rf /"
 alias edit_each='while read -r line; do $EDITOR "$line"; done'
 
 alias g='git'
-complete -o bashdefault -o default -o nospace -F _git g
+complete -o bashdefault -o default -o nospace -F __git_wrap__git_main git
 
 function cdl() {
     builtin cd "$1"
