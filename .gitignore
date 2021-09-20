@@ -1,6 +1,13 @@
 backups/
 vars.yml
 playbook.retry
+.uuid
+
+# Files we don't want
+files/config/Autodesk
+files/config/configstore/update-notifier-npm.json
+files/config/gtk-2.0/
+files/config/qBittorrent/
 
 # Emacs #
 #########
