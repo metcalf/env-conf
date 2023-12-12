@@ -170,6 +170,7 @@ prepend_to_path $HOMEBREW_PREFIX/opt/grep/libexec/gnubin
 export GOPATH=$HOME/code/go
 
 [ -e ~/.rbenvrc ] && source ~/.rbenvrc
+which -s nodenv && eval "$(nodenv init -)"
 
 if [ -f "$HOME/.bashrc-local" ]; then
    . "$HOME/.bashrc-local"

@@ -1,5 +1,5 @@
 ---
-Language:        Cpp
+Language: Cpp
 # BasedOnStyle:  LLVM
 # AccessModifierOffset: -2
 # AlignAfterOpenBracket: Align
@@ -57,7 +57,7 @@ AlwaysBreakTemplateDeclarations: Yes
 # BreakConstructorInitializers: BeforeColon
 # BreakAfterJavaFieldAnnotations: false
 # BreakStringLiterals: true
-# ColumnLimit:     80
+ColumnLimit: 100
 # CommentPragmas:  '^ IWYU pragma:'
 # CompactNamespaces: false
 # ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -123,7 +123,7 @@ AlwaysBreakTemplateDeclarations: Yes
 # PenaltyReturnTypeOnItsOwnLine: 60
 # PenaltyIndentedWhitespace: 0
 # PointerAlignment: Right
-ReflowComments:  false # This avoids breaking e.g. command strings in comments
+ReflowComments: false # This avoids breaking e.g. command strings in comments
 # SortIncludes:    true
 # SortJavaStaticImport: Before
 # SortUsingDeclarations: true

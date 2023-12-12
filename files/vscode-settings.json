@@ -37,4 +37,20 @@
         "files.trimTrailingWhitespace": false
     },
     "workbench.editor.untitled.hint": "hidden",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "clang-format.executable": "/opt/homebrew/bin/clang-format",
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }
