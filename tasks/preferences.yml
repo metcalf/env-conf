@@ -62,3 +62,6 @@
 
 - name: Default to homebrew bash shell
   command: chsh -s /opt/homebrew/bin/bash
+
+- name: Add SSH key to ssh-agent
+  command: ssh-add --apple-use-keychain ~/.ssh/id_ed25519

@@ -63,6 +63,7 @@
       vscode-settings.json: Library/Application Support/Code/User/settings.json
       vscode-keybindings.json: Library/Application Support/Code/User/keybindings.json
       clang-format: .clang-format
+      ssh-config: .ssh/config
     node_modules:
       - eslint
       - eslint-plugin-react

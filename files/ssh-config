@@ -1,4 +1,22 @@
+# Necessary to ensure key is added to ssh-agent on boot
+Host *
+    UseKeychain yes
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+
 Host github.com
   ControlMaster auto
   ControlPath ~/.ssh/sockets/%r@%h-%p
   ControlPersist 600
+
+Host home-sbc-server-local.itsshedtime.com
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h-%p
+  ControlPersist 600
+  ForwardAgent yes
+
+Host home-public.itsshedtime.com
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h-%p
+  ControlPersist 600
+  ForwardAgent yes
