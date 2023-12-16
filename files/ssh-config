@@ -14,9 +14,13 @@ Host home-sbc-server-local.itsshedtime.com
   ControlPath ~/.ssh/sockets/%r@%h-%p
   ControlPersist 600
   ForwardAgent yes
+  ServerAliveInterval 60
+  ServerAliveCountMax 10
 
 Host home-public.itsshedtime.com
   ControlMaster auto
   ControlPath ~/.ssh/sockets/%r@%h-%p
   ControlPersist 600
   ForwardAgent yes
+  ServerAliveInterval 60
+  ServerAliveCountMax 10

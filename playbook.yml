@@ -3,6 +3,7 @@
   vars:
     brews:
       # Formulas
+      autossh:
       bash:
       bash-completion:
       cloc:
