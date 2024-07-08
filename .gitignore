@@ -8,6 +8,7 @@ files/config/Autodesk
 files/config/configstore/update-notifier-npm.json
 files/config/gtk-2.0/
 files/config/qBittorrent/
+files/config/binwalk/modules/
 
 # Emacs #
 #########

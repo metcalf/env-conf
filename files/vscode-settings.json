@@ -1,56 +1,59 @@
 {
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.over": "line",
-    "gitlens.codeLens.scopes": [
-        "document"
-    ],
-    "gitlens.statusBar.enabled": false,
-    "gitlens.hovers.currentLine.enabled": false,
-    "editor.minimap.enabled": false,
-    "rewrap.wrappingColumn": 90,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": false,
-        "suppressShowKeyBindingsNotice": true
-    },
-    "gitlens.historyExplorer.enabled": true,
-    "gitlens.gitExplorer.files.layout": "list",
-    "gitlens.views.repositories.files.layout": "list",
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true,
-    "window.zoomLevel": 0,
-    "diffEditor.renderSideBySide": false,
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "[cpp]": {
-        "editor.tabSize": 2,
-        "editor.defaultFormatter": "xaver.clang-format"
-    },
-    "[diff]": {
-        "files.trimFinalNewlines": false,
-        "files.trimTrailingWhitespace": false
-    },
-    "workbench.editor.untitled.hint": "hidden",
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "clang-format.executable": "/opt/homebrew/bin/clang-format",
-    "[python]": {
-        "editor.formatOnType": true
-    },
-    "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml"
-    },
-    "[css]": {
-        "editor.defaultFormatter": "vscode.css-language-features"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.scopes": ["document"],
+  "gitlens.statusBar.enabled": false,
+  "gitlens.hovers.currentLine.enabled": false,
+  "editor.minimap.enabled": false,
+  "rewrap.wrappingColumn": 90,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "gitlens.historyExplorer.enabled": true,
+  "gitlens.gitExplorer.files.layout": "list",
+  "gitlens.views.repositories.files.layout": "list",
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.lineHistory.enabled": true,
+  "diffEditor.renderSideBySide": false,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "[cpp]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[diff]": {
+    "files.trimFinalNewlines": false,
+    "files.trimTrailingWhitespace": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "clang-format.executable": "/opt/homebrew/bin/clang-format",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "editor.indentSize": "tabSize",
+  "debug.onTaskErrors": "abort",
+  "[typescript]": {}
 }
