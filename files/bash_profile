@@ -1,2 +1,4 @@
 [[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
 . "$HOME/.bashrc"
+
+export PATH="/Users/andrew/bin:$PATH"

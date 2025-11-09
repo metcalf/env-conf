@@ -95,6 +95,7 @@ fi
 alias ll='ls -alFs'
 alias la='ls -CFA'
 alias l='ls -CF'
+alias tojpg='mogrify -format jpg'
 
 alias ..='cd ..'
 alias russian_roulette="[[ $RANDOM -gt 20000 ]] && sudo rm -rf /"

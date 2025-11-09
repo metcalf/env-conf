@@ -55,5 +55,21 @@
   "workbench.editor.empty.hint": "hidden",
   "editor.indentSize": "tabSize",
   "debug.onTaskErrors": "abort",
-  "[typescript]": {}
+  "[typescript]": {},
+  "terminal.integrated.scrollback": 2000,
+  "idf.espIdfPath": "/Users/andrew/esp/v5.1.5/esp-idf",
+  "idf.pythonBinPath": "/Users/andrew/.espressif/python_env/idf5.1_py3.13_env/bin/python",
+  "idf.toolsPath": "/Users/andrew/.espressif",
+  "idf.customExtraPaths": "/Users/andrew/.espressif/tools/xtensa-esp-elf-gdb/12.1_20231023/xtensa-esp-elf-gdb/bin:/Users/andrew/.espressif/tools/riscv32-esp-elf-gdb/12.1_20231023/riscv32-esp-elf-gdb/bin:/Users/andrew/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:/Users/andrew/.espressif/tools/xtensa-esp32s2-elf/esp-12.2.0_20230208/xtensa-esp32s2-elf/bin:/Users/andrew/.espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin:/Users/andrew/.espressif/tools/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin:/Users/andrew/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/bin:/Users/andrew/.espressif/tools/esp-rom-elfs/20230320",
+  "idf.customExtraVars": {
+    "OPENOCD_SCRIPTS": "/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
+    "ESP_ROM_ELF_DIR": "/Users/andrew/.espressif/tools/esp-rom-elfs/20230320/"
+  },
+  "idf.gitPath": "git",
+  "idf.adapterTargetName": "esp32s3",
+  "idf.listDfuDevices": [],
+  "idf.pythonInstallPath": "/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/bin/python3",
+  "idf.hasWalkthroughBeenShown": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "git.blame.editorDecoration.enabled": false
 }
