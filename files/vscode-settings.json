@@ -14,7 +14,7 @@
     "suppressLineUncommittedWarning": false,
     "suppressNoRepositoryWarning": false,
     "suppressResultsExplorerNotice": false,
-    "suppressShowKeyBindingsNotice": true
+    "suppressShowKeyBindingsNotice": true,
   },
   "gitlens.historyExplorer.enabled": true,
   "gitlens.gitExplorer.files.layout": "list",
@@ -27,49 +27,57 @@
   "files.insertFinalNewline": true,
   "[cpp]": {
     "editor.tabSize": 4,
-    "editor.defaultFormatter": "xaver.clang-format"
+    "editor.defaultFormatter": "xaver.clang-format",
   },
   "[diff]": {
     "files.trimFinalNewlines": false,
-    "files.trimTrailingWhitespace": false
+    "files.trimTrailingWhitespace": false,
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "clang-format.executable": "/opt/homebrew/bin/clang-format",
   "[python]": {
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
   },
   "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "[css]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
+    "editor.defaultFormatter": "vscode.css-language-features",
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[c]": {
-    "editor.defaultFormatter": "xaver.clang-format"
+    "editor.defaultFormatter": "xaver.clang-format",
   },
   "workbench.editor.empty.hint": "hidden",
   "editor.indentSize": "tabSize",
   "debug.onTaskErrors": "abort",
   "[typescript]": {},
   "terminal.integrated.scrollback": 2000,
-  "idf.espIdfPath": "/Users/andrew/esp/v5.1.5/esp-idf",
-  "idf.pythonBinPath": "/Users/andrew/.espressif/python_env/idf5.1_py3.13_env/bin/python",
+  "idf.espIdfPath": "/Users/andrew/esp/v5.5.1/esp-idf",
+  "idf.pythonBinPath": "/Users/andrew/.espressif/python_env/idf5.5_py3.14_env/bin/python",
   "idf.toolsPath": "/Users/andrew/.espressif",
-  "idf.customExtraPaths": "/Users/andrew/.espressif/tools/xtensa-esp-elf-gdb/12.1_20231023/xtensa-esp-elf-gdb/bin:/Users/andrew/.espressif/tools/riscv32-esp-elf-gdb/12.1_20231023/riscv32-esp-elf-gdb/bin:/Users/andrew/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:/Users/andrew/.espressif/tools/xtensa-esp32s2-elf/esp-12.2.0_20230208/xtensa-esp32s2-elf/bin:/Users/andrew/.espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin:/Users/andrew/.espressif/tools/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin:/Users/andrew/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/bin:/Users/andrew/.espressif/tools/esp-rom-elfs/20230320",
+  "idf.customExtraPaths": "/Users/andrew/.espressif/tools/xtensa-esp-elf-gdb/16.2_20250324/xtensa-esp-elf-gdb/bin:/Users/andrew/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin:/Users/andrew/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin:/Users/andrew/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin:/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/bin",
   "idf.customExtraVars": {
-    "OPENOCD_SCRIPTS": "/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
-    "ESP_ROM_ELF_DIR": "/Users/andrew/.espressif/tools/esp-rom-elfs/20230320/"
+    "OPENOCD_SCRIPTS": "/Users/andrew/.espressif/tools/openocd-esp32/v0.12.0-esp32-20250707/openocd-esp32/share/openocd/scripts",
+    "ESP_ROM_ELF_DIR": "/Users/andrew/.espressif/tools/esp-rom-elfs/20241011/",
   },
-  "idf.gitPath": "git",
+  "idf.gitPath": "/opt/homebrew/bin/git",
   "idf.adapterTargetName": "esp32s3",
   "idf.listDfuDevices": [],
   "idf.pythonInstallPath": "/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/bin/python3",
   "idf.hasWalkthroughBeenShown": true,
+  "idf.customTerminalExecutable": "/opt/homebrew/bin/bash",
+  "idf.customTerminalExecutableArgs": ["-i"],
   "github.copilot.nextEditSuggestions.enabled": true,
-  "git.blame.editorDecoration.enabled": false
+  "git.blame.editorDecoration.enabled": false,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "idf.eimExecutableArgs": ["gui", "--idf-features ide"],
+  "chat.tools.terminal.terminalProfile.windows": {},
+  "terminal.integrated.defaultProfile.osx": "bash",
 }
