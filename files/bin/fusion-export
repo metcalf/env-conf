@@ -1,0 +1,5 @@
+f1=`sudo find /private/var/spool/cups -name "d*" -print0|sudo xargs -0 ls -t|head -1`
+f2=~/Downloads/`basename $f1`.pdf
+sudo cp "$f1" "$f2"
+sudo chown $USER "$f2"
+open "$f2"
