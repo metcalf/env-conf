@@ -1,3 +1,5 @@
+# Fusion360 doesn’t let you save to PDF from the free version. This extracts a PDF from
+# the print queue. Just print to a disconnected printer and run this from the terminal.
 f1=`sudo find /private/var/spool/cups -name "d*" -print0|sudo xargs -0 ls -t|head -1`
 f2=~/Downloads/`basename $f1`.pdf
 sudo cp "$f1" "$f2"
